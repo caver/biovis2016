@@ -73,7 +73,7 @@
 %%                                          %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\title{Biological Data Visualization for Fun and Profit}
+\title{Comparative Visualization of Molecular Secondary Structures}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%                                          %%
@@ -91,14 +91,39 @@
 \author[
      addressref={aff1},
   % noteref={n2},
-   email={anonymous@gmail.com}
-]{\inits{AA}\fnm{Anonymous} \snm{Author1}}
+   email={lucia.koc@gmail.com}
+]{\inits{LK}\fnm{Lucia} \snm{Kocincov\'{a}}}
 \author[
    addressref={aff1},                   % id's of addresses, e.g. {aff1,aff2}
    %corref={aff1},                       % id of corresponding address, if any
    %noteref={n1},                        % id's of article notes, if any
-  email={alsoanonymous@gmail.com}   % email address
-]{\inits{AA2}\fnm{Anonymous} \snm{Author2}}
+  email={jaresova@mail.muni.cz}   % email address
+]{\inits{MJ}\fnm{Miroslava} \snm{Jare\v{s}ov\'{a}}}
+\author[
+   addressref={aff1,aff2},                   % id's of addresses, e.g. {aff1,aff2}
+   %corref={aff1},                       % id of corresponding address, if any
+   %noteref={n1},                        % id's of article notes, if any
+  email={xbyska@fi.muni.cz}   % email address
+]{\inits{JB}\fnm{Jan} \snm{By\v{s}ka}}
+\author[
+   addressref={aff2},                   % id's of addresses, e.g. {aff1,aff2}
+   %corref={aff1},                       % id of corresponding address, if any
+   %noteref={n1},                        % id's of article notes, if any
+  email={julius.parulek@uib.no}   % email address
+]{\inits{JP}\fnm{J\'{u}lius} \snm{Parulek}}
+\author[
+   addressref={aff2},                   % id's of addresses, e.g. {aff1,aff2}
+   %corref={aff1},                       % id of corresponding address, if any
+   %noteref={n1},                        % id's of article notes, if any
+  email={Helwig.Hauser@uib.no}   % email address
+]{\inits{HH}\fnm{Helwig} \snm{Hauser}}
+\author[
+   addressref={aff1},                   % id's of addresses, e.g. {aff1,aff2}
+   %corref={aff1},                       % id of corresponding address, if any
+   %noteref={n1},                        % id's of article notes, if any
+  email={kozlikova@fi.muni.cz}   % email address
+]{\inits{BK}\fnm{Barbora} \snm{Kozl\'{i}kov\'{a}}}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%                                          %%
@@ -110,17 +135,17 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \address[id=aff1]{%                           % unique id
-  \orgname{Anonymous}, % university, etc
-  \postcode{15260}                                % post or zip code
-  \city{Mariola},                              % city
-  \cny{US}                                    % country
+  \orgname{Masaryk University}, % university, etc
+ % \postcode{60200}                                % post or zip code
+  \city{Brno},                              % city
+  \cny{Czech Republic}                                    % country
 }
 \address[id=aff2]{%                           % unique id
-  \orgname{Anonymous Also}, % university, etc
+  \orgname{University of Bergen}, % university, etc
 %  \street{210 South Bouquet},                     %
-  \postcode{15260}                                % post or zip code
-  \city{Williamsburg},                              % city
-  \cny{UK}                                    % country
+  %\postcode{15260}                                % post or zip code
+  %\city{Bergen},                              % city
+  \cny{Norway}                                    % country
 }
 
 
@@ -159,13 +184,13 @@
 \begin{abstract} % abstract, must be under 350 words
 %\parttitle{First part title} %if any
 %Text for this section.
+  
 
-\parttitle{Background} Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. 
+\parttitle{Background} Visual comparison of molecular structures could provide domain experts with an important information about the similarities and differences in their protein chains. Information about the amino acids (AA) is typically conveyed via secondary structures or as a 1D sequence of AA forming the protein chain. 
 
-\parttitle{Results} We introduce a system for lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. 
+\parttitle{Results} We propose a new visualization technique that bridges these two commonly used representations and by which we are able to compare multiple proteins. Our technique improves the 1D sequential representation by adding parameters derived from geometry of secondary structures, which includes their length and spatial orientation. Further, we introduce a  way to utilize these geometrical aspects to compare two or more protein structures efficiently. The core of our technique is based on unrolling the protein chain to a line while maintaining the mutual orientation of secondary structures as well as their lengths. Then the user can explore in detail structures of interest, which are visually compared via superimposition and juxtaposition techniques. 
 
-\parttitle{Conclusions}  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor.
-
+\parttitle{Conclusions}  We demonstrate the usability of our method on several representatives of the family of cytochromes P450 where the position of the secondary structures has a significant impact on the substrate channeling.
 
 %\parttitle{Second part title} %if any
 %Text for this section.
@@ -226,31 +251,41 @@
 %%
 \section*{Background}
 
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.
+Our method aims to cover the gap between two commonly used representations of molecular structure. Moreover, the proposed solution serves for the comparison of multiple protein structures.
+We focus on structure alignment which finds the best fitting of protein chains and align them with respect to the root mean square deviation (we are using the Combinatorial Extensions algorithm).
+When studying the similarity between more proteins or the differences in whole protein families, the 3D representation is inapplicable because of the visual clutter caused by many intersections (image). This is very true even for small sets of proteins to compare (for very similar structures 5 and more, for structures with lot of differences 3 and more). Thus, in these cases the traditional sequential 1D information is used (image). Here the individual amino acids are aligned (TODO describe structure and sequence alignment and their difference?) and when each row of the representation represents one protein structure, the user can observe the similarities by studying the columns. Some methods allow to integrate the information about the secondary structures in these chains. However, the information about the spatial orientation of the corresponding secondary structures is completely lost. 
+In our representation we utilize the fact that the users are trained to understand the sequential representation well but we add another crucial information about the mutual position of corresponding secondary structures. So our representation helps to reveal not only the differences in the sequence and length of corresponding secondary structures but also the differences in the spatial orientation of the corresponding SS. This is impossible to reach using the traditionally used 1D representation and reaching it in 3D representation is very complex task for large datasets because the user has to study the mutual alignment of proteins from this dataset in smaller portions and merge the gained information manually. 
+Strong points of our representation:
+\begin{itemize}
+\item the domain experts are accustomed with the sequential representation as well as with secondary structures
+\item interactive manipulation
+\item predefined ranking according to RMSD
+\item changing superimposition and juxtaposition
+\item linking with 3D
+\item automatic highlighting of the most similar and the most different secondary structures
+\item filtering (removing the most different proteins)
+\item coloring of SS in the abstracted representation with respect to the physico-chemical properties of the amino acids
+\end{itemize}
 
 \section*{Methods}
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.
+TODO
 
 \subsection*{My Subsection}
-Duis autem vel eum iriure dolor (Fig.~\ref{fig:interface})  in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum~\cite{citation1}.
 
-\begin{figure*}[t!]
-  \centering
-  \includegraphics[height=3.5in]{placeholder.eps}
-  \caption{Example two-column figure. To insert a single column figure, remove the * in the two figure tags. }
-  \label{fig:interface}
-\end{figure*}
+
+%\begin{figure*}[t!]
+%  \centering
+%  \includegraphics[height=3.5in]{pics/teaser.png}
+%  \caption{Example two-column figure. To insert a single column figure, remove the * in the two figure tags. }
+%  \label{fig:interface}
+%\end{figure*}
 
 
 \section*{Results and Discussion}
-
-Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.
-
-Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.
+TODO
 
 \section*{Conclusions}
-
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.
+TODO
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 %%                                          %%
@@ -260,10 +295,10 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh 
 
 \begin{backmatter}
 
-\section*{List of abbreviations used}
-TIM: \textit{triosephosphate isomerase}, scTIM: \textit{saccharomyces
-cerevisiae triosephosphate isomerase}, dTIM: \textit{defective triosephosphate
-isomerase}, PDB: \textit{protein data bank}.
+%\section*{List of abbreviations used}
+%TIM: \textit{triosephosphate isomerase}, scTIM: \textit{saccharomyces
+%cerevisiae triosephosphate isomerase}, dTIM: \textit{defective triosephosphate
+%isomerase}, PDB: \textit{protein data bank}.
 
 \section*{Competing interests}
 The authors declare that they have no competing interests.
