@@ -1,6 +1,6 @@
 %% BioMed_Central_Bib_Style_v1.01
 
-\begin{thebibliography}{1}
+\begin{thebibliography}{4}
 % BibTex style file: bmc-mathphys.bst (version 2.0), 2013-07-15
 \ifx \bisbn   \undefined \def \bisbn  #1{ISBN #1}\fi
 \ifx \binits  \undefined \def \binits#1{#1}\fi
@@ -43,20 +43,70 @@
 \csname PreBibitemsHook\endcsname
 
 %%% 1
-\bibitem{citation1}
+\bibitem{odonoghue2015}
 \begin{barticle}
-\bauthor{\bsnm{Kent}, \binits{W.J.}},
-\bauthor{\bsnm{Sugnet}, \binits{C.W.}},
-\bauthor{\bsnm{Furey}, \binits{T.S.}},
-\bauthor{\bsnm{Roskin}, \binits{K.M.}},
-\bauthor{\bsnm{Pringle}, \binits{T.H.}},
-\bauthor{\bsnm{Zahler}, \binits{A.M.}},
-\bauthor{\bsnm{Haussler}, \binits{D.}}:
-\batitle{The human genome browser at ucsc}.
-\bjtitle{Genome Research}
-\bvolume{12}(\bissue{6}),
-\bfpage{996}--\blpage{1006}
-(\byear{2002})
+\bauthor{\bsnm{O'Donoghue}, \binits{S.I.}},
+\bauthor{\bsnm{Sabir}, \binits{K.S.}},
+\bauthor{\bsnm{Kalemanov}, \binits{M.}},
+\bauthor{\bsnm{Stolte}, \binits{C.}},
+\bauthor{\bsnm{Wellmann}, \binits{B.}},
+\bauthor{\bsnm{Ho}, \binits{V.}},
+\bauthor{\bsnm{Roos}, \binits{M.}},
+\bauthor{\bsnm{Perdigao}, \binits{N.}},
+\bauthor{\bsnm{Buske}, \binits{F.A.}},
+\bauthor{\bsnm{Heinrich}, \binits{J.}},
+\bauthor{\bsnm{Rost}, \binits{B.}},
+\bauthor{\bsnm{Schafferhans}, \binits{A.}}:
+\batitle{{Aquaria: simplifying discovery and insight from protein structures}}.
+\bjtitle{Nat Meth}
+\bvolume{12}(\bissue{2}),
+\bfpage{98}--\blpage{99}
+(\byear{2015})
+\end{barticle}
+\endbibitem
+
+%%% 2
+\bibitem{Stolte2015}
+\begin{barticle}
+\bauthor{\bsnm{Stolte}, \binits{C.}},
+\bauthor{\bsnm{Sabir}, \binits{K.S.}},
+\bauthor{\bsnm{Heinrich}, \binits{J.}},
+\bauthor{\bsnm{Hammang}, \binits{C.J.}},
+\bauthor{\bsnm{Schafferhans}, \binits{A.}},
+\bauthor{\bsnm{O'Donoghue}, \binits{S.I.}}:
+\batitle{{{I}ntegrated visual analysis of protein structures, sequences, and
+  feature data}}.
+\bjtitle{BMC Bioinformatics}
+\bvolume{16 Suppl 11},
+\bfpage{7}
+(\byear{2015})
+\end{barticle}
+\endbibitem
+
+%%% 3
+\bibitem{Nguyen2013}
+\begin{bchapter}
+\bauthor{\bsnm{Nguyen}, \binits{K.T.}},
+\bauthor{\bsnm{Ropinski}, \binits{T.}}:
+\bctitle{Large-scale multiple sequence alignment visualization through gradient
+  vector flow analysis}.
+In: \bbtitle{Biological Data Visualization (BioVis), 2013 IEEE Symposium On},
+pp. \bfpage{9}--\blpage{16}
+(\byear{2013})
+\end{bchapter}
+\endbibitem
+
+%%% 4
+\bibitem{Shindyalov1998}
+\begin{barticle}
+\bauthor{\bsnm{Shindyalov}, \binits{I.N.}},
+\bauthor{\bsnm{Bourne}, \binits{P.E.}}:
+\batitle{Protein structure alignment by incremental combinatorial extension
+  (ce) of the optimal path.}
+\bjtitle{Protein Engineering}
+\bvolume{11}(\bissue{9}),
+\bfpage{739}--\blpage{747}
+(\byear{1998})
 \end{barticle}
 \endbibitem
 

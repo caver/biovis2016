@@ -374,8 +374,115 @@ Linked views
 \subsection*{Implementation}
 With the use of the Combinatorial Extension (CE) algorithm for structure alignment~\cite{Shindyalov1998} and force layout algorithm, we let the structures to align in 3D, so there is no deformation caused by choosing a particular projection or distortion. 
 At the end, we visualize the flattened molecules as if they were stretched out from 3D by pulling the chosen reference molecule at its ends into a straight line, so the actual length of secondary structures is preserved as well as the position of near structures of other molecules which are “locked” to the reference molecule.
+Algorithm - GAPS - Detail exploration of differences of two molecules
 
-Algorithm
+\subsubsection{Introduction}
+We may imagine molecule that contains structures as a nit with colored bubbles on it. 
+Each of these two nits may or may not contain complete set bubbles and if bubbles may not be in same order. 
+Bubbles may be moved along the nit but their order can not change. 
+From protein structure view we are interested where these two nits have not the same order of theirs bubbles or some bubbles are missing. 
+We are searching for gaps in any of these two nits/molecules. 
+Imagine that you put both of nits along each other and you are moving bubbles along the nit such a way to achieve same color of bubbles to be along each other. 
+Best solution would be to minimize amount of gaps, respectively separated bubbles with no pair. 
+Thus the pair making basic algorithm. 
+This require a non trivial recursive algorithm that may be very costly for memory and computational time and its description will be only pseudo-coded here. 
+We will reference this algorithm as Global Best Effort and it's implementation is in stage of optimization of purposes of molecule structure matchmaking. 
+Our hunger approach takes simpler approach but already has promising results
+
+\subsubsection{The Hunger Algorithm}
+Main idea of algorithm is to find possible gaps. 
+Input for the algorithm are two molecules. Output of algorithm are two molecules with added gaps. 
+Algorithm uses distance search and structure comparator. 
+Idea for this algorithm comes from double stack algorithm.
+Algorithm runs until both molecules are fully traversed and uses step approach. 
+In each step a structure from at least one molecule has to be added to output molecules. 
+If any gap happens progress on input molecules will not be same, but as algorithm progress this may change and so.
+
+\textbf{Match Making function}
+Each matchmaking from molecule A to molecule B is done only from the current index of progress on each molecule. 
+The molecules are traversed from current index to end of molecule. 
+First match is returned. 
+At the moment only distance in 3D and structure type are considered in matchmaking. 
+In future, penalization for number of possible gaps will be added. 
+Even though this penalization is already implemented in terms of first match. 
+For Global Best Effort algorithm Match making function will have to take responsibility for best match finding.
+
+In each step algorithm decide what to include in output molecules and how to progress on input molecules. 
+Algorithm holds progress in both input molecules.
+
+\begin{enumerate}
+	\item 
+	If any molecule is already depleted. 
+	Fill output of that molecule with gaps and fill the other molecule with structures that left. 
+	This may be imagined as filling the tail.
+	\item  
+	Find best matches from one molecule to another and vice versa, according to the match making function earlier. 
+	Take math that has minimum gaps that is needed. 
+	Now molecule A will represent the structure which pair has been found in molecule B. 
+	Fill the output of molecule A with gaps in ration 1:1 to structures that will be added to output of structure B. 
+	Add structure from input A to output of molecule A and same in molecule B. 
+	Progress input counter in molecule A by one and in molecule B by 1 + structures added to outout of moleculeB.   
+  \item If no match is returned from both search add gap to molecule A and structure from molecule A to output of molecule A. 
+	Add structure from molecule B and gap to molecule B. 
+	Progress the counter on both molecules A and B.
+	\item If both molecules are at end the solution has been found.
+\end{enumerate}
+
+\subsubsection{Global Best Effort}
+Motivation:
+Imagine the previous nit where both of nits have the colors in this order:
+ 
+A: RED  , BLUE , YELLOW
+
+B: GREEN, BLUE , YELLOW, RED
+
+There are two possibilities for output:
+
+A: RED, GAP  , BLUE, YELLOW, GAP
+
+B: GAP, GREEN, BLUE, YELLOW, RED
+
+or
+
+A: GAP  , GAP , GAP   , RED, BLUE, YELLOW
+
+B: GREEN, BLUE, YELLOW, RED, GAP , GAP   
+
+From the point of nit it is simple. 
+The first option of nit it is easy. 
+The first option will by found. 
+In 3D match making situation may not be the same. 
+Imagine the RED structures are very close to each other. 
+The RED in molecule A is very close to RED in molecule B. 
+The matchmaking function will definitely found out that the RED structures are the best match and found out that GREEN has no match in molecule A.
+From this point the second solution will be taken even if it is not the best estimation in global scale.
+
+Solution:
+Algorithm already uses recursive calling.
+It is derived from your Hunger algorithm.
+Imagine it as a tree that is build depth first with early cut, so dead end computation with already big penalization are cut before additional computation.
+Algorithm stores all solutions in solutions pool.
+ 
+\begin{enumerate}
+	\item 
+	If penalisation of solution is already too big.
+	Stop this branch and do not continue.
+	\item 
+	If tail of any molecule happens do as hunger algorithm
+  \item 
+	Instead of computing only first match from each molecule, compute all matches.
+	This may sound very demanding but it is required. 
+	Do not forget that Match Making function takes distance as a main parameter for match search, thus the possible pairs may be greatly minimised.
+	\item
+	For each of possible match do operation as would hunger algorithm and continue.
+	This is done via recursion and penalization for amount of gap is passed with each call of function.
+  \item 
+  If no match is found continue as a hunger algorithm.
+  \item 
+  If both molecules are at end continue as a hunger algorithm.
+\end{enumerate}
+As the algorithm computes depth first solutions are found. Steps 2 and 6 adding solutions to solution pool. The solution pool has to be filtered from time to time. At first solutions with higher penalisation will be added to pool, because the maximum penalisation will not be set. As solutions will be added to pool maximum penalisation will be set to lowest from the pool. In each solution push to pool all solutions in pool with solution higher penalisation than minimal penalistion will be removed from pool. By this only solutions with lowes penalisation will stay in pool.
+ 
 
 \subsection*{Interaction}
 
