@@ -302,7 +302,7 @@ Therefore, the changes in the spatial position of the secondary structures direc
 The mutual spatial arrangement of the secondary structures can be easily observed in a 3D view. 
 However, for comparison of multiple proteins, such a representation is very limited with respect to its scalability.
 In other words, due to the occlusion problems, the spatial representation is suitable for comparison of only few structures. 
-Figure~\ref{fig:many} demonstrates the case when four similar proteins are aligned.
+Figure~\ref{fig:many} demonstrates the case when six similar proteins are aligned.
 Even with such a small number of molecules it is hard to perceive the differences in the secondary structure positions.
 
 %One of the most important ones is the presence of a void space inside the protein which directly influences the protein reactivity with a small ligand. 
@@ -311,7 +311,7 @@ Even with such a small number of molecules it is hard to perceive the difference
 \begin{figure}[th]
   \centering
   \includegraphics[width=0.9\columnwidth]{pics/many.png}
-  \caption{Structure alignment of four proteins with similar structure visualized in 3D.}
+  \caption{Structure alignment of six proteins with similar structure visualized in 3D.}
   \label{fig:many}
 \end{figure}
 
@@ -390,56 +390,56 @@ Moreover, it enables the user to navigate through the chain and select only an i
 %\end{itemize}
 
 \subsection*{Implementation}
-With the use of the Combinatorial Extension (CE) algorithm for structure alignment~\cite{Shindyalov1998} and force layout algorithm, we let the structures to align in 3D, so there is no deformation caused by choosing a particular projection or distortion. 
-At the end, we visualize the flattened molecules as if they were stretched out from 3D by pulling the chosen reference molecule at its ends into a straight line, so the actual length of secondary structures is preserved as well as the position of near structures of other molecules which are “locked” to the reference molecule.
-Algorithm - GAPS - Detail exploration of differences of two molecules
+%With the use of the Combinatorial Extension (CE) algorithm for structure alignment~\cite{Shindyalov1998} and force layout algorithm, we let the structures to align in 3D, so there is no deformation caused by choosing a particular projection or distortion. 
+%At the end, we visualize the flattened molecules as if they were stretched out from 3D by pulling the chosen reference molecule at its ends into a straight line, so the actual length of secondary structures is preserved as well as the position of near structures of other molecules which are “locked” to the reference molecule.
+%Algorithm - GAPS - Detail exploration of differences of two molecules
 
 \subsubsection{Introduction}
-We may imagine molecule that contains structures as a nit with colored bubbles on it. 
-Each of these two nits may or may not contain complete set bubbles and if bubbles may not be in same order. 
-Bubbles may be moved along the nit but their order can not change. 
-From protein structure view we are interested where these two nits have not the same order of theirs bubbles or some bubbles are missing. 
-We are searching for gaps in any of these two nits/molecules. 
-Imagine that you put both of nits along each other and you are moving bubbles along the nit such a way to achieve same color of bubbles to be along each other. 
-Best solution would be to minimize amount of gaps, respectively separated bubbles with no pair. 
-Thus the pair making basic algorithm. 
-This require a non trivial recursive algorithm that may be very costly for memory and computational time and its description will be only pseudo-coded here. 
-We will reference this algorithm as Global Best Effort and it's implementation is in stage of optimization of purposes of molecule structure matchmaking. 
-Our hunger approach takes simpler approach but already has promising results
+We may imagine molecule that contains structures as a thread with colored beads on it. 
+Each of these two threads may or may not contain complete set of beads and these beads may not be in the same order. 
+Beads may be moved along the thread but their order cannot change. 
+From protein structure point of view we are interested in those parts where these two threads have not the same order of their beads or some beads are missing. 
+We are searching for gaps in any of these two threads/protein chains. 
+Imagine that you put both threads along each other and you are moving beads along the thread such a way to achieve the same color of beads to be aligned. 
+The best solution would be to minimize the amount of gaps, respectively separated beads with no pair. 
+%Thus the pair making basic algorithm. 
+This requires a non trivial recursive algorithm that may be very costly for memory and computational time and its description will be only pseudo-coded here. 
+We will reference this algorithm as Global Best Effort and its implementation is in the stage of optimization for purposes of molecule structure matchmaking. 
+Our greedy approach takes simpler approach but already has promising results with acceptable running times.
 
-\subsubsection{The Hunger Algorithm}
-Main idea of algorithm is to find possible gaps. 
-Input for the algorithm are two molecules. Output of algorithm are two molecules with added gaps. 
-Algorithm uses distance search and structure comparator. 
-Idea for this algorithm comes from double stack algorithm.
-Algorithm runs until both molecules are fully traversed and uses step approach. 
-In each step a structure from at least one molecule has to be added to output molecules. 
-If any gap happens progress on input molecules will not be same, but as algorithm progress this may change and so.
+\subsubsection{The Greedy Algorithm}
+The main idea of this algorithm is to find gaps. 
+The input for the algorithm is formed by two molecules. 
+The output contains these two molecules with added gaps. 
+The algorithm uses distance search and structure comparator. 
+The idea for this algorithm comes from the double stack algorithm.
+The algorithm runs until both molecules are fully traversed and uses per-step approach. 
+In each step a secondary structure from at least one molecule has to be added to the output. 
+!!!!!!!!!!If any gap happens, the progress on input molecules will not be the same, but as algorithm progress this may change and so.
 
 \textbf{Match Making function}
 Each matchmaking from molecule A to molecule B is done only from the current index of progress on each molecule. 
-The molecules are traversed from current index to end of molecule. 
+The molecules are traversed from the current index to the end of molecule. 
 First match is returned. 
 At the moment only distance in 3D and structure type are considered in matchmaking. 
 In future, penalization for number of possible gaps will be added. 
 Even though this penalization is already implemented in terms of first match. 
 For Global Best Effort algorithm Match making function will have to take responsibility for best match finding.
 
-In each step algorithm decide what to include in output molecules and how to progress on input molecules. 
+In each step the algorithm decides what to include in output molecules and how to progress on input molecules. 
 Algorithm holds progress in both input molecules.
 
 \begin{enumerate}
 	\item 
-	If any molecule is already depleted. 
-	Fill output of that molecule with gaps and fill the other molecule with structures that left. 
+	If any molecule is already processed, fill output of that molecule with gaps and fill the other molecule with structures that left. 
 	This may be imagined as filling the tail.
 	\item  
 	Find best matches from one molecule to another and vice versa, according to the match making function earlier. 
-	Take math that has minimum gaps that is needed. 
+	Take match that has minimum gaps that is needed. 
 	Now molecule A will represent the structure which pair has been found in molecule B. 
-	Fill the output of molecule A with gaps in ration 1:1 to structures that will be added to output of structure B. 
+	Fill the output of molecule A with gaps in ratio 1:1 to structures that will be added to output of structure B. 
 	Add structure from input A to output of molecule A and same in molecule B. 
-	Progress input counter in molecule A by one and in molecule B by 1 + structures added to outout of moleculeB.   
+	Progress input counter in molecule A by one and in molecule B by 1 + structures added to output of molecule B.   
   \item If no match is returned from both search add gap to molecule A and structure from molecule A to output of molecule A. 
 	Add structure from molecule B and gap to molecule B. 
 	Progress the counter on both molecules A and B.
@@ -502,7 +502,11 @@ Algorithm stores all solutions in solutions pool.
 As the algorithm computes depth first solutions are found. Steps 2 and 6 adding solutions to solution pool. The solution pool has to be filtered from time to time. At first solutions with higher penalisation will be added to pool, because the maximum penalisation will not be set. As solutions will be added to pool maximum penalisation will be set to lowest from the pool. In each solution push to pool all solutions in pool with solution higher penalisation than minimal penalistion will be removed from pool. By this only solutions with lowes penalisation will stay in pool.
 
 \subsubsection{Dynamics}
-Typically in dynamics we are comparing more than two molecules at same time. As seen earlier, Hunger and Best Effort algorithm modifies the output molecules. This is not acceptable in global scale as we may have to compare each molecule with each molecule and there is not a molecule that can not change. Another approach is required. As we only comparing same molecule in different time we are sure that structures will not change positions, even if they may be missing respectively not recognised in that time moment. Algorithm goes through all molecule time snapshots at each time. Algorithm takes all snapshots and returns one super snapshot without gaps but with all structures in order from beginning found in all snapshots. Algorithm holds position for each molecule snapshot.
+Typically in dynamics we are comparing more than two molecules at same time. 
+As seen earlier, Hunger and Best Effort algorithm modifies the output molecules. 
+This is not acceptable in global scale as we may have to compare each molecule with each molecule and there is not a molecule that can not change. 
+Another approach is required. 
+As we only comparing same molecule in different time we are sure that structures will not change positions, even if they may be missing respectively not recognised in that time moment. Algorithm goes through all molecule time snapshots at each time. Algorithm takes all snapshots and returns one super snapshot without gaps but with all structures in order from beginning found in all snapshots. Algorithm holds position for each molecule snapshot.
 
 If molecules are fully traversed end the solution.
 For each snapshot (snapshot A):
