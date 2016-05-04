@@ -342,34 +342,52 @@ One protein chain is selected as reference and the remaining proteins are aligne
 For each aligned protein this algorithm outputs the transformed positions of its atoms and the RMSD (root-mean-square deviation) number expressing the difference between the reference and aligned protein.  
 The results are loaded to our newly proposed representation consisting of the following parts (see Figure~\ref{fig:design}):
 \begin{itemize}
-\item 3D visualization window showing all aligned proteins (it utilizes the PV viewer available in SWISS-MODEL tool~~\cite{biasini2014})
+\item 3D visualization window showing all aligned proteins (it utilizes the PV viewer available in SWISS-MODEL tool~\cite{biasini2014})
 \item superimposition and juxtaposition sequential representations of the secondary structures of aligned proteins
 \end{itemize}
 
-
+In the following we describe the design rationale behind the newly proposed sequential representation in detail.
 
 \begin{figure*}[t!]
   \centering
   \includegraphics[height=3.5in]{pics/design.png}
-  \caption{Overview of the system consisting of three main parts.}
+  \caption{Overview of the system consisting of three main parts. TODO}
   \label{fig:design}
 \end{figure*}
 
 
-Strong points of our representation:
+\subsection*{Design}
+The design of the proposed sequential visualization is based on the following requirements:
 \begin{itemize}
-\item interactive manipulation
-\item predefined ranking according to RMSD
-\item linking with 3D
-\item automatic highlighting of the most similar and the most different secondary structures
-\item filtering (removing the most different proteins)
-\item coloring of SS in the abstracted representation with respect to the physico-chemical properties of the amino acids
+\item it should convey the information about the constitution of the protein chain wrt. its secondary structures
+\item it should serve for multiple comparison of protein chains in represented by its secondary structures
+\item the user should be able to easily see the similarities and differences between the chains
+\item the user should have the information about the global similarity between proteins 
+\item the user should be able to interact with the system in order to explore the similarities and differences in detail
 \end{itemize}
 
+Figure~\ref{fig:element} shows the basic element of our proposed visualization.
+It demonstrates the case when two proteins chains are aligned.
+It consists of two main parts.
+The main top part represents the sequential information about protein chain along with its secondary structures.
+The bottom part serves for interactive navigation through the protein chain in the top part. 
+It informs the user about the length and overall alignment of the compared structures.
+Moreover, it enables the user to navigate through the chain and select only an interesting part of the aligned chains which is then zoomed in the top part.
 
-\subsection*{Design}
-Linked views
+\begin{figure*}[t!]
+  \centering
+  \includegraphics[width=0.9\textwidth]{pics/element.png}
+  \caption{Basic element of our proposed visualization consisting of two main parts. The top part shows the secondary structures of the aligned proteins, the bottom part serves for general overview and interactive navigation and selection.}
+  \label{fig:element}
+\end{figure*}
 
+%Strong points of our representation:
+%\begin{itemize}
+%\item interactive manipulation
+%\item predefined ranking according to RMSD
+%\item linking with 3D
+%\item filtering (removing the most different proteins)
+%\end{itemize}
 
 \subsection*{Implementation}
 With the use of the Combinatorial Extension (CE) algorithm for structure alignment~\cite{Shindyalov1998} and force layout algorithm, we let the structures to align in 3D, so there is no deformation caused by choosing a particular projection or distortion. 
