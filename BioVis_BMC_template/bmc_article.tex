@@ -219,9 +219,9 @@ The second study focuses on the protein flexibility when by comparing a set of t
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{keyword}
+\kwd{Molecular Visualization}
 \kwd{Molecular Sequence Analysis}
-\kwd{Molecular Structural Biology}
-\kwd{Computational Proteomics}
+\kwd{Molecular Structure and Function}
 \end{keyword}
 
 % MSC classifications codes, if any
@@ -322,33 +322,54 @@ Our solution also utilizes the fact that the domain experts are well accustomed 
 Therefore, our proposed visualization is interactively linked with the 3D view.
 Selection of interesting secondary structures in the novel representation is directly projected to this spatial view. 
 
-
 \subsection*{Related Work}
 
 \cite{Stolte2015}, maybe also \cite{Nguyen2013}
 
 \section*{Methodology}
-TODO 
+Our newly proposed method bridges the gap between the one-dimensional and three-dimensional representations of the protein chain.
+Moreover, it serves for fast and intuitive multiple comparison of proteins when it helps to reveal the similarities and differences between the aligned chains, namely their secondary structures.
+The 3D representation is not suitable for such comparison because of the occlusion problems.
+However, the spatial arrangement and mutual orientation of the aligned secondary structures highly influences the protein properties.
+So it is desirable to communicate this information in the visualization.
+On the other hand, the 1D sequential representation of the chain clearly communicates the protein constitution and removes the occlusion problem.
+We also utilize the fact that the domain experts are well accustomed with both sequential and cartoon representations.
+Therefore, we combined the qualities of both representations and proposed a novel method for comparison and interactive exploration of multiple aligned protein chains.
 
-\subsection*{Design}
-
-Strong points of our representation:
+The input data consist of a set of proteins in the PDB format and are aligned with respect to their structure.
+The alignment is performed using the Combinatorial Extension (CE) algorithm~\cite{Shindyalov1998}. 
+One protein chain is selected as reference and the remaining proteins are aligned to it.
+For each aligned protein this algorithm outputs the transformed positions of its atoms and the RMSD (root-mean-square deviation) number expressing the difference between the reference and aligned protein.  
+The results are loaded to our newly proposed representation consisting of the following parts (see Figure~\ref{fig:design}):
 \begin{itemize}
-\item the domain experts are accustomed with the sequential representation as well as with secondary structures
-\item interactive manipulation
-\item predefined ranking according to RMSD
-\item changing superimposition and juxtaposition
-\item linking with 3D
-\item automatic highlighting of the most similar and the most different secondary structures
-\item filtering (removing the most different proteins)
-\item coloring of SS in the abstracted representation with respect to the physico-chemical properties of the amino acids
+\item 3D visualization window showing all aligned proteins (it utilizes the PV viewer available in SWISS-MODEL tool~~\cite{biasini2014})
+\item superimposition and juxtaposition sequential representations of the secondary structures of aligned proteins
 \end{itemize}
+
+
+
 \begin{figure*}[t!]
   \centering
   \includegraphics[height=3.5in]{pics/design.png}
   \caption{Overview of the system consisting of three main parts.}
   \label{fig:design}
 \end{figure*}
+
+
+Strong points of our representation:
+\begin{itemize}
+\item interactive manipulation
+\item predefined ranking according to RMSD
+\item linking with 3D
+\item automatic highlighting of the most similar and the most different secondary structures
+\item filtering (removing the most different proteins)
+\item coloring of SS in the abstracted representation with respect to the physico-chemical properties of the amino acids
+\end{itemize}
+
+
+\subsection*{Design}
+Linked views
+
 
 \subsection*{Implementation}
 With the use of the Combinatorial Extension (CE) algorithm for structure alignment~\cite{Shindyalov1998} and force layout algorithm, we let the structures to align in 3D, so there is no deformation caused by choosing a particular projection or distortion. 
