@@ -461,6 +461,20 @@ Algorithm stores all solutions in solutions pool.
   If both molecules are at end continue as a hunger algorithm.
 \end{enumerate}
 As the algorithm computes depth first solutions are found. Steps 2 and 6 adding solutions to solution pool. The solution pool has to be filtered from time to time. At first solutions with higher penalisation will be added to pool, because the maximum penalisation will not be set. As solutions will be added to pool maximum penalisation will be set to lowest from the pool. In each solution push to pool all solutions in pool with solution higher penalisation than minimal penalistion will be removed from pool. By this only solutions with lowes penalisation will stay in pool.
+
+\subsubsection{Dynamics}
+Typically in dynamics we are comparing more than two molecules at same time. As seen earlier, Hunger and Best Effort algorithm modifies the output molecules. This is not acceptable in global scale as we may have to compare each molecule with each molecule and there is not a molecule that can not change. Another approach is required. As we only comparing same molecule in different time we are sure that structures will not change positions, even if they may be missing respectively not recognised in that time moment. Algorithm goes through all molecule time snapshots at each time. Algorithm takes all snapshots and returns one super snapshot without gaps but with all structures in order from beginning found in all snapshots. Algorithm holds position for each molecule snapshot.
+
+If molecules are fully traversed end the solution.
+For each snapshot (snapshot A):
+Take current structure (structure A) and found that structure on each other snapshot (snapshot X). Traverse only nodes that are has not been already passed on traversed each structure (snapshot X). 
+If GAP would be required. Do not search further and take another snapshot to take structure to find. Note that that in reality match will be found usually within 5 steps on chain so it is very rare to traverse whole molecule. (Time reduction)
+If structures is found that do not require GAP (structure is missing in other snapshots or it is in first position to take) put it into an output super snapshot and progress on each structure where the structure has been found.
+If for all snapshots GAP would be required to put (each snapshot would have to produce different structure on same position ... very unexpected ... maybe even impossible) take all snapshots and put all stuctures into super snapshot and update counter on each snapshot.
+
+When this part of algorithm is ended. Run Hunger Algorithm with updated Match Making function. Match Making function will only take in count the structure type and not distance. From the experience we presume that the distance of the structures will not change that much to count with it. There is no need for Best Effort algorithm because the snapshots will be compared with super snapshot that has to encapsulate all snapshots. The super snapshot will no change so input of super snapshot will be the same as output for super snapshot from Hunger algorithm. 
+
+On the final visuallisation gaps represent where are the dynamics points of interest. If no gaps are found the threshold for structure recognision may be too big and if many gaps are found the molecule may be instable or the threshold is set very strictly.
  
 
 \subsection*{Interaction}
