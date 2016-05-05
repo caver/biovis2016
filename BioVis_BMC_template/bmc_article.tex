@@ -322,6 +322,13 @@ Our solution also utilizes the fact that the domain experts are well accustomed 
 Therefore, our proposed visualization is interactively linked with the 3D view.
 Selection of interesting secondary structures in the novel representation is directly projected to this spatial view. 
 
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=0.9\textwidth]{pics/flattening_design2.png}
+  \caption{Overview of the proposed system. Top left part contains the 3D visualization window integrating the PV viewer~\cite{biasini2014}. The right part contains our proposed visualization methods serving for comparison of two or more protein chains. It consists of superimposed and juxtaposed views. Bottom left part contains the user interface.}
+  \label{fig:design}
+\end{figure*}
+
 \subsection*{Related Work}
 
 An exhaustive and comprehensive review on the methods, tools and applications of 2D molecular graphics was presented by Zhou and Shang \cite{Zhou2009}. 
@@ -342,6 +349,8 @@ All above-mentioned expert systems create these simplified topology maps from at
 %+ Pro-origami
 
 \cite{Stolte2015}, maybe also \cite{Nguyen2013}
+
+
 
 \section*{Methodology}
 Our newly proposed method bridges the gap between the one-dimensional and three-dimensional representations of the protein chain.
@@ -367,11 +376,10 @@ In the following we describe the design rationale behind the newly proposed sequ
 
 \begin{figure*}[t!]
   \centering
-  \includegraphics[height=3.5in]{pics/design.png}
-  \caption{Overview of the system consisting of three main parts. TODO}
-  \label{fig:design}
+  \includegraphics[width=0.9\textwidth]{pics/element.png}
+  \caption{Basic element of our proposed visualization consisting of two main parts. The top part shows the secondary structures of the aligned proteins, the bottom part serves for general overview and interactive navigation and selection.}
+  \label{fig:element}
 \end{figure*}
-
 
 \subsection*{Design}
 The design of the proposed sequential visualization is based on the following requirements:
@@ -391,12 +399,39 @@ The bottom part serves for interactive navigation through the protein chain in t
 It informs the user about the length and overall alignment of the compared structures.
 Moreover, it enables the user to navigate through the chain and select only an interesting part of the aligned chains which is then zoomed in the top part.
 
-\begin{figure*}[t!]
+
+The interactive navigation part consists several colored lines where each line corresponds to one protein.
+If the protein consists of more chains, the line is interrupted.
+Each line can contain black parts which correspond to gaps inserted by the overlay algorithm described in Section~\ref{sec:alg}.
+These gaps play a role of inserted parts into the straightened chains in order to maintain the correspondence between secondary structures of aligned chains. 
+This can happen, e.g., when one chain contains a secondary structure which is missing in the second protein (see Figure~\ref{fig:gap}).
+In the top part each gap is represented by grey rectangle.
+
+\begin{figure}[ht]
   \centering
-  \includegraphics[width=0.9\textwidth]{pics/element.png}
-  \caption{Basic element of our proposed visualization consisting of two main parts. The top part shows the secondary structures of the aligned proteins, the bottom part serves for general overview and interactive navigation and selection.}
-  \label{fig:element}
-\end{figure*}
+  \includegraphics[width=0.9\linewidth]{pics/gap2.png}
+  \caption{Example of a helix in the blue protein which does not have its couterpart in the orange protein. This is solved by inserting a gap (grey rectangle) to the superimposed and juxtaposed representations.}
+  \label{fig:gap}
+\end{figure}
+
+These basic elements are used in two different manners.
+In the first case all representations of the aligned chains are superimposed so the user can immediately see the most similar and different parts of the chains.
+The second case shows all aligned chains next to each other which helps to explore individual chains in detail.
+In both cases the user can use the navigation slider to select only and interesting part of the chains, zoom in and browse the chain in this zoomed mode.
+In the visualization one protein, selected as a reference one, is completely straightened.
+The orientation of the secondary structures in the remaining aligned chains is adjusted according to the difference between the position and rotation of the corresponding secondary structures in the reference chain (see Figure~\ref{fig:orientation}).
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.9\linewidth]{pics/orientation.png}
+  \caption{Example of encoding the mutual orientation of two corresponding helices from the aligned chains (highlighted in green) into our representation. Our visualization maintains the information about the "opening" of the helices.}
+  \label{fig:orientation}
+\end{figure}
+
+In consequence, our abstracted representation intuitively navigates the user to the most interesting parts of the chains by linking the selection in the superimposed or juxtaposed view with the 3D representation of the aligned proteins. 
+
+As mentioned before, except for the visualization we proposed also an algorithm for solving the problem of gap insertion.
+This will be described in detail in the following section.
 
 %Strong points of our representation:
 %\begin{itemize}
@@ -407,11 +442,27 @@ Moreover, it enables the user to navigate through the chain and select only an i
 %\end{itemize}
 
 \subsection*{Implementation}
+Our system was implemented using web-based technologies in order to make it available to the wide community of potential users.
+Therefore, we used JavaScript along with the D3.js library~\cite{d3} in order to create a fully interactive environment.
+Our novel visualization is linked with the 3D representation of the aligned proteins which utilizes the PV viewer~\cite{biasini2014}. 
+
+In the remaining part of this section we describe in detail our proposed algorithms for solving the problems with gap insertion into our visual representation.
+We will outline the problem by using a metaphor when the protein chain can be taken as a thread and the secondary structures on this chain will correspond to beads put on this thread.
+When comparing more protein chains, we are dealing with a set of threads. 
+The beads on these threads can have different colors. 
+Their color stands for one secondary structure (helix or strand) which has its unique structure, i.e., consists of a given set of amino acids.
+Therefore, the beads with the same color can be positioned on different threads.
+In other words, if two beads being on different threads have the same color, it signifies that the corresponding secondary structures were mutually aligned and marked as the corresponding ones. 
+Now we take all the threads and put them below each other.
+And the task is to position the beads on these threads in such a way that if they correspond to each other (have the same color), they are also positioned below each other. 
+The following algorithm proposes a simple solution to this problem.
+
 %With the use of the Combinatorial Extension (CE) algorithm for structure alignment~\cite{Shindyalov1998} and force layout algorithm, we let the structures to align in 3D, so there is no deformation caused by choosing a particular projection or distortion. 
 %At the end, we visualize the flattened molecules as if they were stretched out from 3D by pulling the chosen reference molecule at its ends into a straight line, so the actual length of secondary structures is preserved as well as the position of near structures of other molecules which are “locked” to the reference molecule.
 %Algorithm - GAPS - Detail exploration of differences of two molecules
 
-\subsubsection{Introduction}
+\subsubsection*{Gap Insertion Algorithm}
+\label{sec:alg}
 We may imagine molecule that contains structures as a thread with colored beads on it. 
 Each of these two threads may or may not contain complete set of beads and these beads may not be in the same order. 
 Beads may be moved along the thread but their order cannot change. 
@@ -462,61 +513,6 @@ Algorithm holds progress in both input molecules.
 	Progress the counter on both molecules A and B.
 	\item If both molecules are at end the solution has been found.
 \end{enumerate}
-
-\subsubsection{Global Best Effort}
-Motivation:
-Imagine the previous nit where both of nits have the colors in this order:
- 
-A: RED  , BLUE , YELLOW
-
-B: GREEN, BLUE , YELLOW, RED
-
-There are two possibilities for output:
-
-A: RED, GAP  , BLUE, YELLOW, GAP
-
-B: GAP, GREEN, BLUE, YELLOW, RED
-
-or
-
-A: GAP  , GAP , GAP   , RED, BLUE, YELLOW
-
-B: GREEN, BLUE, YELLOW, RED, GAP , GAP   
-
-From the point of nit it is simple. 
-The first option of nit it is easy. 
-The first option will by found. 
-In 3D match making situation may not be the same. 
-Imagine the RED structures are very close to each other. 
-The RED in molecule A is very close to RED in molecule B. 
-The matchmaking function will definitely found out that the RED structures are the best match and found out that GREEN has no match in molecule A.
-From this point the second solution will be taken even if it is not the best estimation in global scale.
-
-Solution:
-Algorithm already uses recursive calling.
-It is derived from your Hunger algorithm.
-Imagine it as a tree that is build depth first with early cut, so dead end computation with already big penalization are cut before additional computation.
-Algorithm stores all solutions in solutions pool.
- 
-\begin{enumerate}
-	\item 
-	If penalisation of solution is already too big.
-	Stop this branch and do not continue.
-	\item 
-	If tail of any molecule happens do as hunger algorithm
-  \item 
-	Instead of computing only first match from each molecule, compute all matches.
-	This may sound very demanding but it is required. 
-	Do not forget that Match Making function takes distance as a main parameter for match search, thus the possible pairs may be greatly minimised.
-	\item
-	For each of possible match do operation as would hunger algorithm and continue.
-	This is done via recursion and penalization for amount of gap is passed with each call of function.
-  \item 
-  If no match is found continue as a hunger algorithm.
-  \item 
-  If both molecules are at end continue as a hunger algorithm.
-\end{enumerate}
-As the algorithm computes depth first solutions are found. Steps 2 and 6 adding solutions to solution pool. The solution pool has to be filtered from time to time. At first solutions with higher penalisation will be added to pool, because the maximum penalisation will not be set. As solutions will be added to pool maximum penalisation will be set to lowest from the pool. In each solution push to pool all solutions in pool with solution higher penalisation than minimal penalistion will be removed from pool. By this only solutions with lowes penalisation will stay in pool.
 
 \subsubsection{Dynamics}
 Typically in dynamics we are comparing more than two molecules at same time. 
