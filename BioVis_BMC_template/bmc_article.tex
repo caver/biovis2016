@@ -337,10 +337,37 @@ The evaluation of common visualization techniques in context of their dimensiona
 The expected benefits and drawbacks of using manifold visualizations when solving particular tasks are discussed in order to propose ideas how to improve those techniques.
 
 According to Stivala \cite{Stivala2011}, there are four systems specializing in automatic generation of protein structure diagrams.
-One of the first was HERA \cite{Hutchinson1990}, which generates hydrogen bonding diagrams of protein structures and optionally helical wheels and helical nets.
-
-
+The main contribution of their system, Pro-origami, lies in novel approach to automatic creation of diagram layout of protein structure cartoons.
+This system provides diagrams which are clear, accurate, interactive and editable.
+One of the first systems was HERA \cite{Hutchinson1990}, which generates hydrogen bonding diagrams of protein structures and optionally helical wheels and helical nets.
+The TOPS cartoons, offering highly simplified description of protein topology, were the subject of system created by Westhead \cite{Westhead1999}.
+The actual database of TOPS entries was enhanced by Michalopoulos \cite{Michalopoulos2004}, enriching the topological entries with the information about packing relationships between helices and annotated them with sequence information.
+PDBsum is one of the best known atlases of summary information about each protein structure model in Protein Data Bank.
+A recent addition to this atlas presented by Laskowski \cite{Laskowski2009} offers topology diagrams for protein domains showing the arrangement and connectivity of protein secondary structures.
+These diagrams are generated from hydrogen bonding plots of HERA.
 All above-mentioned expert systems create these simplified topology maps from atomic co-ordinates in PDB files.
+
+%ligandd
+An effort on providing biochemists with protein sequences supplemented with some additional information was introduced by Todd in their program DOMPLOT \cite{Todd1999}.
+The supplementary information that the diagrams are enhanced by is mostly the data from interaction between protein and metal ions, ligands and/or nucleic acids with which it binds.
+LIGPLOT \cite{Wallace1995} program by Wallace focuses on automatic generation of 2D diagrams of protein-ligand complexes as well.
+Another approach to creation of 2D graphs representing a protein structure is presented by Sch{\"a}fer \cite{Schafer2012}.
+In their representation, the secondary structure elements are modeled as vertices and spatial contacts between them are represented as edges.
+This software, also known as Visualization of Protein-Ligand Graphs (VPLG), supports several graph types and can optionally include ligand contacts.
+%would be probably beneficial to mention here the drawbacks of this solution - mainly the edge clutter when there are many spatial contacts...
+
+%comparison of proteins
+Concerning the comparison of protein structures, Zemla presented an LGA method (Local-Global Alignment) \cite{Zemla2003} that facilitates both sequence dependent and independent modes to this problem.
+Other structure comparison programs use an adequate scoring function, mostly evaluating the similarity with two numbers.
+Those rankings are RMSD between two superimposed structures together with the number of structurally aligned residues.
+Nevertheless, it is highly difficult to optimize both these rankings simultaneously thus they came up with a solution of many different local superimpositions that help to detect similar regions amidst the proteins.
+Subsequently, their scoring function has two components -- it evaluates longest continuous segments and tests global distance thus this method is able to detect regions which are similar either locally or globally.
+
+As the domain experts need to fully understand molecular mechanisms to find related structures with respect to sequence-based features, Stolte integrated a visual analysis \cite{Stolte2015}, in the Aquaria system \cite{odonoghue2015}.
+It allows to encode the information about individual secondary structures directly into the sequential representation.
+This idea forms also the basis of our newly proposed visualization.
+An entirely different approach to analysis of sequences was presented by Nguyen \cite{Nguyen2013} in their visualization technique that conveys patterns in large-scale multiple sequence alignments.
+
 
 
 %HERA (Hutchinson and Thornton, 1990) generates detailed hydrogen-bonding diagrams
@@ -455,6 +482,7 @@ Therefore, the beads with the same color can be positioned on different threads.
 In other words, if two beads being on different threads have the same color, it signifies that the corresponding secondary structures were mutually aligned and marked as the corresponding ones. 
 Now we take all the threads and put them below each other.
 And the task is to position the beads on these threads in such a way that if they correspond to each other (have the same color), they are also positioned below each other. 
+The beads can move along the thread but cannot exchange the position with another bead on the same thread.
 The following algorithm proposes a simple solution to this problem.
 
 %With the use of the Combinatorial Extension (CE) algorithm for structure alignment~\cite{Shindyalov1998} and force layout algorithm, we let the structures to align in 3D, so there is no deformation caused by choosing a particular projection or distortion. 
@@ -463,25 +491,29 @@ The following algorithm proposes a simple solution to this problem.
 
 \subsubsection*{Gap Insertion Algorithm}
 \label{sec:alg}
-We may imagine molecule that contains structures as a thread with colored beads on it. 
-Each of these two threads may or may not contain complete set of beads and these beads may not be in the same order. 
-Beads may be moved along the thread but their order cannot change. 
-From protein structure point of view we are interested in those parts where these two threads have not the same order of their beads or some beads are missing. 
-We are searching for gaps in any of these two threads/protein chains. 
-Imagine that you put both threads along each other and you are moving beads along the thread such a way to achieve the same color of beads to be aligned. 
-The best solution would be to minimize the amount of gaps, respectively separated beads with no pair. 
-%Thus the pair making basic algorithm. 
-This requires a non trivial recursive algorithm that may be very costly for memory and computational time and its description will be only pseudo-coded here. 
-We will reference this algorithm as Global Best Effort and its implementation is in the stage of optimization for purposes of molecule structure matchmaking. 
-Our greedy approach takes simpler approach but already has promising results with acceptable running times.
+The algorithm for determining the parts on the protein chains where a gap should be inserted works as follows. 
+The optimal solution would be to minimize the amount of inserted gaps.
+Such solution would be very time and memory consuming.
+To overcome this, we propose a greedy algorithm which produces sufficiently correct solution for in a fraction of time of the optimal solution.
+The correctness was tested on many protein structures and only in some cases our greedy approach inserts few unnecessary gaps into the chains.
 
-\subsubsection{The Greedy Algorithm}
-The main idea of this algorithm is to find gaps. 
-The input for the algorithm is formed by two molecules. 
-The output contains these two molecules with added gaps. 
-The algorithm uses distance search and structure comparator. 
-The idea for this algorithm comes from the double stack algorithm.
-The algorithm runs until both molecules are fully traversed and uses per-step approach. 
+The algorithm operates with pairs of protein chains.
+The idea for this algorithm comes from the double stack approach when we are able to maintain two stacks in one array.
+This is reached by allowing the grow of the stacks in opposite directions.
+The algorithm starts by positioning two pointers, each pointer to the beginning of one protein chain.
+In each step the algorithm compares the secondary structures from both chains, starting from the pointer positions.
+This comparison is performed in two directions, from protein A to protein B and vice versa.
+We will describe the principle only for one direction, from A to B.
+
+
+
+When a corresponding secondary structure  (bead with same color) is found 
+
+The algorithm ends when both protein chains are processed.
+
+In each step the algorithm compares the secodary structures f
+
+ and uses per-step approach. 
 In each step a secondary structure from at least one molecule has to be added to the output. 
 !!!!!!!!!!If any gap happens, the progress on input molecules will not be the same, but as algorithm progress this may change and so.
 
