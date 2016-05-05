@@ -267,10 +267,10 @@ The second study focuses on the protein flexibility when by comparing a set of t
 Studying the structure of proteins has been in the scope of researchers for many decades, namely because of their importance in all living cells. 
 Better understanding of their constitution and behavior helps to understand and control their function and properties.
 
-Protein structure consists of a polypeptide chain of amino acids which is unique for each type of protein. 
-The chain is folded into a spatial conformation which can possess specific patterns, called secondary structures.
+Protein structure consists of a polypeptide chain of amino acids, which is unique for each type of protein. 
+The chain is folded into a spatial conformation that exhibits specific patterns, called secondary structures.
 Among these structures belong so called alpha-helices and beta-sheets. 
-The amino acids forming these secondary structures are hold their shape thanks to weak hydrogen bonds between them.
+The amino acids forming these secondary structures maintain their shape thanks to weak hydrogen bonds between them.
 Visual representation of the protein consisting of secondary structures is denoted as cartoon or ribbon (see Figure~\ref{fig:aquaria} left).
 This highly abstracted visualization omits individual atoms of the protein and highlights only the protein backbone represented by the secondary structures.
 Such a representation is very popular by researchers because of its balanced tradeoff between the level of abstractness and conveying the spatial arrangement of the chain.
@@ -282,13 +282,13 @@ Such a representation is very popular by researchers because of its balanced tra
   \label{fig:aquaria}
 \end{figure*}
 
-When comparing several protein structures, e.g., when searching for similar structures in order to get the information about an unknown protein, there are several existing algorithms for aligning such structures.
+When comparing several protein structures, e.g., when searching for similar structures in order to get the information about an unknown protein, there are several existing algorithms for aligning such structures \textbf{TODO some references here}.
 These algorithms are aligning the whole structures (structure alignment) or are parsing the sequence of amino acids and searching for corresponding patterns (sequence alignment). 
 The results of these alignments are traditionally presented in a form of color-coded one-dimensional sequential information (see Figure~\ref{fig:align}).
-Each row represents one protein structure and the user can observe the similarities and differences between protein chains by exploring the columns.
+Each row represents one protein structure and the user can observe both similarities and differences between protein chains by exploring the columns.
 Some methods equip the sequence with the information about secondary structures (see Figure~\ref{fig:aquaria} right).
 However, all of them lack the mutual spatial orientation of the secondary structures of the aligned structures.
-This information is crucial in many cases, namely when exploring the protein inner void space playing a significant role in protein reactivity with other molecules.
+This information is crucial in many cases, namely when exploring the protein inner void space that plays a significant role in protein reactivity with other molecules.
 This void space is determined by the surrounding amino acids, i.e., secondary structures. 
 Therefore, the changes in the spatial position of the secondary structures directly influence the volume and shape of the void space.
 
@@ -316,8 +316,8 @@ Even with such a small number of molecules it is hard to perceive the difference
 \end{figure}
 
 To overcome the problems of the lack of mutual arrangement of the compared protein in the sequential representation and problems with occlusion in the spatial view, we propose a new method designed to serve as a tool for comparison of multiple structures and intuitive exploration of their spatial differences.
-It takes the advantages of the sequential information which consists of individual secondary structures and when comparing this sequence with other proteins, it encodes the mutual spatial arrangement of the secondary structures of the aligned proteins.
-In consequence, the user can observe this arrangement without the occlusion problems of the 3D view.
+It benefits from the sequential information which consists of individual secondary structures, and when comparing this sequence with other proteins, it encodes the mutual spatial arrangement of the secondary structures of the aligned proteins.
+In consequence, the user can observe this arrangement without occlusion issues present in the 3D view.
 Our solution also utilizes the fact that the domain experts are well accustomed with the sequential representation as well as with secondary structures and their cartoon representation. 
 Therefore, our proposed visualization is interactively linked with the 3D view.
 Selection of interesting secondary structures in the novel representation is directly projected to this spatial view. 
