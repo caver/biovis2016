@@ -500,26 +500,16 @@ The algorithm ends when both protein chains are processed completely.
 When one of the chains is already processed and the second chain still contains some remaining secondary structures, we fill the end of the processed chain with gaps.
 
 \subsubsection*{Algorithm for Processing Molecular Dynamics}
-
-
-
-Typically in dynamics we are comparing more than two molecules at same time. 
-As seen earlier, Hunger and Best Effort algorithm modifies the output molecules. 
-This is not acceptable in global scale as we may have to compare each molecule with each molecule and there is not a molecule that can not change. 
-Another approach is required. 
-As we only comparing same molecule in different time we are sure that structures will not change positions, even if they may be missing respectively not recognised in that time moment. Algorithm goes through all molecule time snapshots at each time. Algorithm takes all snapshots and returns one super snapshot without gaps but with all structures in order from beginning found in all snapshots. Algorithm holds position for each molecule snapshot.
-
-If molecules are fully traversed end the solution.
-For each snapshot (snapshot A):
-Take current structure (structure A) and found that structure on each other snapshot (snapshot X). Traverse only nodes that are has not been already passed on traversed each structure (snapshot X). 
-If GAP would be required. Do not search further and take another snapshot to take structure to find. Note that that in reality match will be found usually within 5 steps on chain so it is very rare to traverse whole molecule. (Time reduction)
-If structures is found that do not require GAP (structure is missing in other snapshots or it is in first position to take) put it into an output super snapshot and progress on each structure where the structure has been found.
-If for all snapshots GAP would be required to put (each snapshot would have to produce different structure on same position ... very unexpected ... maybe even impossible) take all snapshots and put all stuctures into super snapshot and update counter on each snapshot.
-
-When this part of algorithm is ended. Run Hunger Algorithm with updated Match Making function. Match Making function will only take in count the structure type and not distance. From the experience we presume that the distance of the structures will not change that much to count with it. There is no need for Best Effort algorithm because the snapshots will be compared with super snapshot that has to encapsulate all snapshots. The super snapshot will no change so input of super snapshot will be the same as output for super snapshot from Hunger algorithm. 
-
-On the final visuallisation gaps represent where are the dynamics points of interest. If no gaps are found the threshold for structure recognision may be too big and if many gaps are found the molecule may be instable or the threshold is set very strictly.
- 
+When comparing individual time steps of a molecular dynamics simulation, the situation is slightly different. 
+We can use the fact that the constitution of the protein chain and only small changes in its secondary structures can occur over time.
+These changes can happen at the ends of the secondary structures where the amino acid can due to the movement change its membership to the given secondary structure.
+If the secondary structure is very short (consists of one or two amino acids), it can completely disappear in some time steps.
+In this specific case we take a different approach.
+From all time steps we derive one aggregated chain containing all secondary structures which appear at least in one time step. 
+In this way we create an artificial chain which is internally stored and not presented to the user.
+Then, each time step chain $i$ is compared with this artificial chain and the necessary gaps are inserted into $i$.
+These gaps are positioned onto the places where the artificial chain contains a secondary structure but chain $i$ does not possess it. 
+When all time steps are processed, the artificial chain is removed.
 
 \subsection*{Interaction}
 
