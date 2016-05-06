@@ -312,7 +312,7 @@ Even with such a small number of molecules it is hard to perceive the difference
 \begin{figure}[th]
   \centering
   \includegraphics[width=0.9\columnwidth]{pics/many.png}
-  \caption{Structure alignment of six proteins with similar structure visualized in 3D.}
+  \caption{Spatial representation of structure alignment of six proteins from the cytochrome P450 family which have very similar constitution.}
   \label{fig:many}
 \end{figure}
 
@@ -549,18 +549,48 @@ However, this order can be changed by simple interaction with the user interface
 
 \section*{Results and Discussion}
 Our proposed visualization was tested on several case studies proposed by the biochemists.
+Here we will describe two selected cases.
 The first study compares six proteins from the cytochrome P450 family of proteins which are published and compared in the review paper by Cojocaru et al.~\cite{Cojocaru2007}. 
+The authors present newly revealed channels in this family of proteins.
+Studying these channels is of high interest because they can serve for transportation of ligands to the protein active site where a chemical reaction between the protein and ligand can occur.
+The study demonstrates how some of the channels can merge when the protein structures change.
+This merge is largely caused by movements of specific secondary structures.
+These movements are most significant when comparing crystal structures of the mammalian and bacterial enzymes.
+
+The authors are exploring six enzymes (with PDB identifiers 2D09, 1JPZ, 1PQ2, 1IZO, 1F4T, and 1NR6) which represent different topologies of cytochrome P450. 
+The presence and position of channels in these enzymes are distinguished by the secondary structure elements lining the channels at the protein surface. 
+As the positioning of the secondary structures varies from one cytochrome to another, the spatial location of channels vary considerably as well.
+Therefore, the key to understand the differences between channels lies in the exploration of changes between the spatial positions of lining secondary structures.
+However, using the juxtaposed views illustrated in the paper or superimposing the 3D representations it is very hard to reveal the differences in positions of the secondary structures (see Figure~\ref{fig:many}).
+
+Using our newly proposed representation the user can immediately see the differences in the aligned chains of these structures (see Figure TODO).
+By selecting those interesting parts in the 2D view the user is intuitively navigated to the areas in 3D space where these parts are located.
+This enables fast exploration of the aligned chains and changes in the void space lined by the secondary structures which determines the geometric properties of channels.
+
+The second study focuses on the exploration of protein flexibility.
+This can be reached by studying the behavior of the protein via the molecular dynamics simulations.
+Individual secondary structures of the protein can change their positions over time and the the more significant movement, the more flexible a given secondary structure is.
+Therefore, we can study the protein behavior by comparing the protein chain in selected time steps.
+Here our representation again helps to reveal the most similar (i.e., stable) and most different (i.e., flexible) secondary structures (see Figure TODO) and to navigate the user to these parts in the 3D view.
+
+The domain experts concluded that our proposed 2D representation along with its integrated 3D view is innovative because it helps them to easily reveal the most interesting parts of the aligned protein chains.
+Thus, it overcomes the occlusion problems because the user is directly navigated only to the specific parts of the chains in the 3D view.
 
 \section*{Conclusions}
-In this paper we proposed a novel visual representation of protein chains which serves namely for their comparison.
+In this paper we proposed a novel visual representation of protein chains which helps to intuitively compare several aligned protein chains and to reveal their most significant parts.
+The representation uses combines the advantages of the 2D sequential representation and 3D view and help the user to understand the mutual position of secondary structures in the aligned chains and explore them in 3D.
+The usability of our approach was tested on several case studies and the domain experts confirmed that it helped them to reveal and understand the differences between secondary structure positions more quickly and intuitively than before.
 
+Our representation can be further improved in several ways. 
+One bottleneck of our approach currently lies in the Gap Insertion algorithm which, due to its simplicity, can in some specific cases insert too much gaps.
+Therefore, we will design and implement more sophisticated, yet time and memory efficient, approach to visualizing gaps in superimposition of more than two structures.
+Another possible extension, also suggested by the domain experts, was to automatically highlight interesting parts of the chains by introducing a similarity index.
+Of course, this index has to be defined in tight cooperation with the biochemists.
+When comparing many proteins or many time steps, the visualization starts to be too complex.
+In these cases the user is mostly interested in the most differences between the chains.
+Therefore, we could implement a contour-based visualization which outlines only the contours of the superimposed structures.
+Finally, our representation could be further equipped with the additional information about positions of protein channels, interacting ligands, and other biochemically relevant structures.
 
-Future work
-- algorithm for generating gaps -- design and implement non-trivial approach to visualizing gaps in superimposition of more than two structures
-- introduce a similarity index which would be created with the cooperation of domain experts
-- automatic suggestions of interesting parts of the aligned chains -- and highlight them in both 2D and 3D
-- contour based visualization of many superimposed structures
-- encode additional information into the visualization, e.g. tunnels, ligands (see what is already done in STAR)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 %%                                          %%
 %% Backmatter begins here                   %%
