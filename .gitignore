@@ -1,2 +1,7 @@
 *.bak
 BioVis_BMC_template/bmc_article.pdf
+*.aux
+*.bbl
+*.blg
+*.log
+*.gz
