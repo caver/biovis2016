@@ -272,8 +272,13 @@ The chain is folded into a spatial conformation that exhibits specific patterns,
 Among these structures belong so called alpha-helices and beta-sheets. 
 The amino acids forming these secondary structures maintain their shape thanks to weak hydrogen bonds between them.
 Visual representation of the protein consisting of secondary structures is denoted as cartoon or ribbon (see Figure~\ref{fig:aquaria} left).
-This highly abstracted visualization omits individual atoms of the protein and highlights only the protein backbone represented by the secondary structures.
-Such a representation is very popular by researchers because of its balanced tradeoff between the level of abstractness and conveying the spatial arrangement of the chain.
+
+%\begin{figure}[bh]
+%  \centering
+%  \includegraphics[width=0.9\columnwidth]{pics/cartoon.png}
+%  \caption{Cartoon (ribbon) representation of the protein chain.}
+%  \label{fig:cartoon}
+%\end{figure}
 
 \begin{figure*}[th]
   \centering
@@ -282,23 +287,30 @@ Such a representation is very popular by researchers because of its balanced tra
   \label{fig:aquaria}
 \end{figure*}
 
+This highly abstracted visualization omits individual atoms of the protein and highlights only the protein backbone represented by the secondary structures.
+Such a representation is very popular by researchers because of its balanced tradeoff between the level of abstractness and conveying the spatial arrangement of the chain.
+
 When comparing several protein structures, e.g., when searching for similar structures in order to get the information about an unknown protein, there are several existing algorithms for aligning such structures~\cite{dali,Shindyalov1998,ssap,tmalign,promals3d}.
+
 These algorithms are aligning the whole structures (structure alignment) or are parsing the sequence of amino acids and searching for corresponding patterns (sequence alignment). 
 The results of these alignments are traditionally presented in a form of color-coded one-dimensional sequential information (see Figure~\ref{fig:align}).
 
-\begin{figure}[bh]
+Each row represents one protein structure and the user can observe both similarities and differences between protein chains by exploring the columns.
+Some methods equip the sequence with the information about secondary structures (see Figure~\ref{fig:aquaria} right).
+However, all of them lack the mutual spatial orientation of the secondary structures of the aligned structures.
+
+\begin{figure}[ht]
   \centering
   \includegraphics[width=0.9\columnwidth]{pics/align.png}
   \caption{Example of the sequence alignment visualization.}
   \label{fig:align}
 \end{figure}
 
-Each row represents one protein structure and the user can observe both similarities and differences between protein chains by exploring the columns.
-Some methods equip the sequence with the information about secondary structures (see Figure~\ref{fig:aquaria} right).
-However, all of them lack the mutual spatial orientation of the secondary structures of the aligned structures.
 This information is crucial in many cases, namely when exploring the protein inner void space that plays a significant role in protein reactivity with other molecules.
 This void space is determined by the surrounding amino acids, i.e., secondary structures. 
 Therefore, the changes in the spatial position of secondary structures directly influence the volume and shape of the void space.
+
+
 
 The mutual spatial arrangement of the secondary structures can be easily observed in a 3D view. 
 However, for comparison of multiple proteins, such a representation is very limited with respect to its scalability.
@@ -309,7 +321,7 @@ Even with such a small number of molecules it is hard to perceive the difference
 %One of the most important ones is the presence of a void space inside the protein which directly influences the protein reactivity with a small ligand. 
 %The interaction with the ligand occurs often deeply inside the protein and the 
 
-\begin{figure}[th]
+\begin{figure}[h!]
   \centering
   \includegraphics[width=0.9\columnwidth]{pics/many.png}
   \caption{Spatial representation of structure alignment of six proteins from the cytochrome P450 family which have very similar constitution.}
@@ -323,12 +335,6 @@ Our solution also utilizes the fact that the domain experts are well accustomed 
 Therefore, our proposed visualization is interactively linked with the 3D view.
 Selection of interesting secondary structures in the novel representation is directly projected to this spatial view. 
 
-\begin{figure*}[t]
-  \centering
-  \includegraphics[width=0.9\textwidth]{pics/flattening_design2.png}
-  \caption{Overview of the proposed system. Top left part contains the 3D visualization window integrating the PV viewer~\cite{biasini2014}. The right part contains our proposed visualization methods serving for comparison of two or more protein chains. It consists of superimposed and juxtaposed views. Bottom left part contains the user interface.}
-  \label{fig:design}
-\end{figure*}
 
 \subsection*{Related Work}
 
@@ -392,12 +398,20 @@ The results are loaded to our newly proposed representation consisting of the fo
 \item superimposition and juxtaposition sequential representations of the secondary structures of aligned proteins
 \end{itemize}
 
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=0.9\textwidth]{pics/flattening_design2.png}
+  \caption{Overview of the proposed system. Top left part contains the 3D visualization window integrating the PV viewer~\cite{biasini2014}. The right part contains our proposed visualization methods serving for comparison of two or more protein chains. It consists of superimposed and juxtaposed views. Bottom left part contains the user interface.}
+  \label{fig:design}
+\end{figure*}
+
+
 In the following we describe the design rationale behind the newly proposed sequential representation in detail.
 
 \begin{figure*}[t!]
   \centering
-  \includegraphics[width=0.9\textwidth]{pics/element.png}
-  \caption{Basic element of our proposed visualization consisting of two main parts. The top part shows the secondary structures of the aligned proteins, the bottom part serves for general overview and interactive navigation and selection.}
+  \includegraphics[width=0.9\textwidth]{pics/element2.png}
+  \caption{Basic element of our proposed visualization consisting of two main parts. The top part shows the secondary structures of the aligned proteins, the bottom part serves for general overview and interactive navigation and selection (grey rectangle).}
   \label{fig:element}
 \end{figure*}
 
@@ -405,7 +419,7 @@ In the following we describe the design rationale behind the newly proposed sequ
 The design of the proposed sequential visualization is based on the following requirements:
 \begin{itemize}
 \item it should convey the information about the constitution of the protein chain wrt. its secondary structures
-\item it should serve for multiple comparison of protein chains in represented by its secondary structures
+\item it should serve for multiple comparison of protein chains represented by secondary structures
 \item the user should be able to easily see the similarities and differences between the chains
 \item the user should have the information about the global similarity between proteins 
 \item the user should be able to interact with the system in order to explore the similarities and differences in detail
@@ -414,8 +428,8 @@ The design of the proposed sequential visualization is based on the following re
 Figure~\ref{fig:element} shows the basic element of our proposed visualization.
 It demonstrates the case when two proteins chains are aligned.
 It consists of two main parts.
-The main top part represents the sequential information about protein chain along with its secondary structures.
-The bottom part serves for interactive navigation through the protein chain in the top part. 
+The first part represents the sequential information about protein chain along with its secondary structures.
+The second part serves for interactive navigation through the protein chain in the top part. 
 It informs the user about the length and overall alignment of the compared structures.
 Moreover, it enables the user to navigate through the chain and select only an interesting part of the aligned chains, which is then zoomed in the top part.
 
@@ -467,7 +481,7 @@ The beads on these threads can have different colors.
 Their color stands for one secondary structure (helix or strand) which has its unique structure, i.e., consists of a given set of amino acids.
 Therefore, the beads with the same color can be positioned on different threads.
 In other words, if two beads being on different threads have the same color, it signifies that the corresponding secondary structures were mutually aligned and marked as the corresponding ones. 
-Afterward all the threads are arranged below each other.
+Afterwards all the threads are arranged below each other.
 The task is to position the beads on these threads in such a way that if they correspond to each other (have the same color), they are also positioned below each other. 
 The beads can move along the thread but cannot exchange the position with another bead on the same thread.
 The following algorithm proposes a simple solution to this problem.
@@ -480,9 +494,8 @@ The following algorithm proposes a simple solution to this problem.
 \label{sec:alg}
 The algorithm for determining the parts on the protein chains where a gap should be inserted works as follows. 
 The optimal solution would be to minimize the amount of inserted gaps.
-Such solution would be very time and memory consuming.
+Such solution would be very time and memory consuming because it has to process all possible solutions and select the most suitable one.
 To overcome this, we propose a greedy algorithm which produces sufficiently correct solution in a fraction of time of the optimal solution.
-The correctness was tested on many protein structures and only in some cases our greedy approach inserts a few unnecessary gaps into the chains.
 
 The algorithm operates with pairs of protein chains and it is illustrated in Figure~\ref{fig:alg1}.
 
@@ -511,6 +524,7 @@ If $n_{gap}$ or $m_{gap}$ is zero, we do not insert any gap and continue.
 The algorithm ends when both protein chains are processed completely.
 When one of the chains is already processed and the second chain still contains some remaining secondary structures, we fill the end of the processed chain with gaps.
 
+The correctness was tested on many protein structures and only in some cases our greedy approach inserts a few unnecessary gaps into the chains.
 
 \subsubsection*{Algorithm for Processing Molecular Dynamics}
 When comparing individual time steps of a molecular dynamics simulation, the situation is slightly different. 
@@ -529,6 +543,7 @@ In this specific case we utilize a different approach, illustrated in Figure~\re
 
 From all time steps we derive one aggregated chain containing all secondary structures which appear at least in one time step. 
 In this way we create an artificial chain which is internally stored and not presented to the user.
+This artificial chain contains one representative of each secondary structure which appeared at least in one of the time step chains.
 Then each time step, chain $X$ is compared with this artificial chain and the necessary gaps are inserted into $X$ (here we again utilize our proposed Gap Insertion algorithm).
 These gaps are positioned onto the places where the artificial chain contains a secondary structure but chain $X$ does not possess it. 
 When all time steps are processed, the artificial chain is removed.
@@ -552,22 +567,30 @@ However, this order can be changed by simple interaction with the user interface
 \section*{Results and Discussion}
 Our proposed visualization was tested on several case studies proposed by the biochemists.
 Here we will describe two selected cases.
-The first study compares six proteins from the cytochrome P450 family of proteins which are published and compared in the review paper by Cojocaru et al.~\cite{Cojocaru2007}. 
+The first study compares proteins from the cytochrome P450 family of proteins which are published and compared in the review paper by Cojocaru et al.~\cite{Cojocaru2007}. 
 The authors present newly revealed channels in this family of proteins.
 Studying these channels is of high interest because they can serve for transportation of ligands to the protein active site where a chemical reaction between the protein and ligand can occur.
 The study demonstrates how some of the channels can merge when the protein structures change.
 This merge is largely caused by movements of specific secondary structures.
 These movements are most significant when comparing crystal structures of the mammalian and bacterial enzymes.
 
-The authors are exploring six enzymes (with PDB identifiers 2D09, 1JPZ, 1PQ2, 1IZO, 1F4T, and 1NR6) which represent different topologies of cytochrome P450. 
+The authors are exploring enzymes (for our case we selected those with PDB identifiers 2D09, 1PQ2, 1IZO, 1F4T, and 1NR6) which represent different topologies of cytochrome P450. 
 The presence and position of channels in these enzymes are distinguished by the secondary structure elements lining the channels at the protein surface. 
 As the positioning of the secondary structures varies from one cytochrome to another, the spatial location of channels vary considerably as well.
 Therefore, the key to understand the differences between channels lies in the exploration of changes between the spatial positions of lining secondary structures.
 However, using the juxtaposed views illustrated in the paper or superimposing the 3D representations it is very hard to reveal the differences in positions of the secondary structures (see Figure~\ref{fig:many}).
 
-Using our newly proposed representation the user can immediately see the differences in the aligned chains of these structures (see Figure TODO).
+Using our newly proposed representation the user can observe the differences in the aligned chains of these structures (see Figure~\ref{fig:five}).
 By selecting those interesting parts in the 2D view the user is intuitively navigated to the areas in 3D space where these parts are located.
 This enables fast exploration of the aligned chains and changes in the void space lined by the secondary structures which determines the geometric properties of channels.
+
+\begin{figure*}[hbt]
+  \centering
+  \includegraphics[width=0.9\textwidth]{pics/five.png}
+  \caption{Five aligned protein structures from the cytochrome P450 family. Top left part shows the 3D view and right part represents a fraction (for better illustration) of the superimposed and juxtaposed representations of the aligned chains. The superimposed view clearly shows that secondary structures marked by red rectangle are well aligned and their mutual position differs only slightly. On the other hand, the secondary structures in the blue rectangle are highly scattered in the 3D space.}
+  \label{fig:five}
+\end{figure*}
+
 
 The second study focuses on the exploration of protein flexibility.
 This can be reached by studying the behavior of the protein via the molecular dynamics simulations.
@@ -589,7 +612,7 @@ Therefore, we will design and implement more sophisticated, yet time and memory 
 Another possible extension, also suggested by the domain experts, was to automatically highlight interesting parts of the chains by introducing a similarity index.
 Of course, this index has to be defined in tight cooperation with the biochemists.
 When comparing many proteins or many time steps, the visualization starts to be too complex.
-In these cases the user is mostly interested in the most differences between the chains.
+In these cases the user is mostly interested in the significant differences between the chains.
 Therefore, we could implement a contour-based visualization which outlines only the contours of the superimposed structures.
 Finally, our representation could be further equipped with the additional information about positions of protein channels, interacting ligands, and other biochemically relevant structures.
 
