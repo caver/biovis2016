@@ -371,14 +371,16 @@ An entirely different approach to analysis of sequences was presented by Nguyen 
 
 
 \section*{Methodology}
-Our newly proposed method bridges the gap between the one-dimensional and three-dimensional representations of the protein chain.
-Moreover, it serves for fast and intuitive multiple comparison of proteins, which helps to reveal the similarities and differences between the aligned chains, namely their secondary structures.
-The 3D representation is not suitable for such comparison because of the occlusion problems.
-However, the spatial arrangement and mutual orientation of the aligned secondary structures highly influences the protein properties.
-So it is desirable to communicate this information in the visualization.
-On the other hand, the 1D sequential representation of the chain clearly communicates the protein constitution and removes the occlusion problem.
-We also utilize the fact that the domain experts are well accustomed with both sequential and cartoon representations.
-Therefore, we combine the qualities of both representations and propose a novel method for comparison and interactive exploration of multiple aligned protein chains \textbf{This was already mentioned - sounds more like motivation again, I would suggest to reduce it and put a small system overview}.
+%Our newly proposed method bridges the gap between the one-dimensional and three-dimensional representations of the protein chain.
+%Moreover, it serves for fast and intuitive multiple comparison of proteins, which helps to reveal the similarities and differences between the aligned chains, namely their secondary structures.
+%The 3D representation is not suitable for such comparison because of the occlusion problems.
+%However, the spatial arrangement and mutual orientation of the aligned secondary structures highly influences the protein properties.
+%So it is desirable to communicate this information in the visualization.
+%On the other hand, the 1D sequential representation of the chain clearly communicates the protein constitution and removes the occlusion problem.
+%We also utilize the fact that the domain experts are well accustomed with both sequential and cartoon representations.
+As mentioned earlier, our approach combines the qualities of 2D sequential representation and 3D view and presents a novel method for comparison and interactive exploration of multiple aligned protein chains.
+This results in the hybrid representation which encodes the information about mutual orientation of corresponding secondary structures to the sequential view.
+This representation is interactively linked with the 3D view and by interactive selections the user has immediate correspondence between these two views.
 
 The input data consist of a set of proteins in the PDB format, which are subsequently aligned with respect to their structure.
 The alignment is performed using the Combinatorial Extension (CE) algorithm~\cite{Shindyalov1998}. 
