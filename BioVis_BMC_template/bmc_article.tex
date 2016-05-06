@@ -282,22 +282,23 @@ Such a representation is very popular by researchers because of its balanced tra
   \label{fig:aquaria}
 \end{figure*}
 
-When comparing several protein structures, e.g., when searching for similar structures in order to get the information about an unknown protein, there are several existing algorithms for aligning such structures \textbf{TODO some references here}.
+When comparing several protein structures, e.g., when searching for similar structures in order to get the information about an unknown protein, there are several existing algorithms for aligning such structures~\cite{dali,Shindyalov1998,ssap,tmalign,promals3d}.
 These algorithms are aligning the whole structures (structure alignment) or are parsing the sequence of amino acids and searching for corresponding patterns (sequence alignment). 
 The results of these alignments are traditionally presented in a form of color-coded one-dimensional sequential information (see Figure~\ref{fig:align}).
+
+\begin{figure}[bh]
+  \centering
+  \includegraphics[width=0.9\columnwidth]{pics/align.png}
+  \caption{Example of the sequence alignment visualization.}
+  \label{fig:align}
+\end{figure}
+
 Each row represents one protein structure and the user can observe both similarities and differences between protein chains by exploring the columns.
 Some methods equip the sequence with the information about secondary structures (see Figure~\ref{fig:aquaria} right).
 However, all of them lack the mutual spatial orientation of the secondary structures of the aligned structures.
 This information is crucial in many cases, namely when exploring the protein inner void space that plays a significant role in protein reactivity with other molecules.
 This void space is determined by the surrounding amino acids, i.e., secondary structures. 
 Therefore, the changes in the spatial position of secondary structures directly influence the volume and shape of the void space.
-
-\begin{figure}[th]
-  \centering
-  \includegraphics[width=0.9\columnwidth]{pics/align.png}
-  \caption{Example of the sequence alignment visualization.}
-  \label{fig:align}
-\end{figure}
 
 The mutual spatial arrangement of the secondary structures can be easily observed in a 3D view. 
 However, for comparison of multiple proteins, such a representation is very limited with respect to its scalability.
@@ -431,6 +432,13 @@ In the top part each gap is represented by gray rectangle.
   \label{fig:gap}
 \end{figure}
 
+\begin{figure}[th]
+  \centering
+  \includegraphics[width=0.9\linewidth]{pics/orientation.png}
+  \caption{Example of encoding the mutual orientation of two corresponding helices from the aligned chains (highlighted in green) into our representation. Our visualization maintains the information about the "opening" of the helices.}
+  \label{fig:orientation}
+\end{figure}
+
 These basic elements are used in two different manners.
 In the first case all representations of the aligned chains are superimposed so that the user can immediately see the most similar and different parts of the chains.
 The second case shows all aligned chains next to each other which helps to explore individual chains in detail.
@@ -438,12 +446,6 @@ In both cases the user can use the navigation slider to select only and interest
 In the visualization one protein, selected as a reference one, is completely straightened.
 The orientation of the secondary structures in the remaining aligned chains is adjusted according to the difference between the position and rotation of the corresponding secondary structures in the reference chain (see Figure~\ref{fig:orientation}).
 
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=0.9\linewidth]{pics/orientation.png}
-  \caption{Example of encoding the mutual orientation of two corresponding helices from the aligned chains (highlighted in green) into our representation. Our visualization maintains the information about the "opening" of the helices.}
-  \label{fig:orientation}
-\end{figure}
 
 In consequence, our abstracted representation intuitively navigates the user to the most interesting parts of the chains by linking the selection in the superimposed or juxtaposed view with the 3D representation of the aligned proteins. 
 
@@ -480,7 +482,15 @@ Such solution would be very time and memory consuming.
 To overcome this, we propose a greedy algorithm which produces sufficiently correct solution in a fraction of time of the optimal solution.
 The correctness was tested on many protein structures and only in some cases our greedy approach inserts a few unnecessary gaps into the chains.
 
-The algorithm operates with pairs of protein chains.
+The algorithm operates with pairs of protein chains and it is illustrated in Figure~\ref{fig:alg1}.
+
+\begin{figure}[hbt]
+  \centering
+  \includegraphics[width=0.9\linewidth]{pics/alg1.png}
+  \caption{Principle of the Gap Insertion algorithm. Image illustrates the state when in proteins A and B the helices $i$ and $r$ were already determined as the corresponding ones and the pointers are positioned behind them. Now strand $j$ from A is searched in B and the corresponding strand $t$ is found after skipping one secondary structure. Therefore $n_{gap} = 1$. Similarly, for helix $s$ in B we search for corresponding helix in A. It is the $m$ helix in A and we had to skip 3 secondary structures, so  $m_{gap} = 3$. So we select the first option as the next step, insert one gap to chain A (which will correspond to helix $s$ from B), shift the pointers behind $j$, respectively $t$, and repeat the procedure until both proteins are not processed.}
+  \label{fig:alg1}
+\end{figure}
+
 The idea for this algorithm comes from the double stack approach when we are able to maintain two stacks in one array.
 This is reached by allowing the grow of the stacks in opposite directions.
 The algorithm starts by positioning two pointers, each pointer to the beginning of one protein chain.
@@ -499,18 +509,28 @@ If $n_{gap}$ or $m_{gap}$ is zero, we do not insert any gap and continue.
 The algorithm ends when both protein chains are processed completely.
 When one of the chains is already processed and the second chain still contains some remaining secondary structures, we fill the end of the processed chain with gaps.
 
+
 \subsubsection*{Algorithm for Processing Molecular Dynamics}
 When comparing individual time steps of a molecular dynamics simulation, the situation is slightly different. 
 We can use the fact that only small changes in its secondary structures and the constitution of the protein chain can occur over time.
 %v následující větě jde o jednu AA, nebo o více?
 These changes can happen at the ends of the secondary structures where the amino acid can change its membership to the given secondary structure because of the movement of the molecule in the dynamics.
 If the secondary structure is very short (consists of one or two amino acids), it can completely disappear in some time steps.
-In this specific case we utilize a different approach.
+In this specific case we utilize a different approach, illustrated in Figure~\ref{fig:alg2}.
+
+\begin{figure}[hbt]
+  \centering
+  \includegraphics[width=0.9\linewidth]{pics/alg2.png}
+  \caption{Principle of the algorithm processing molecular dynamics. Image illustrates the state when we aim to compare three time steps $A, B, C$ of molecular dynamics simulation. First an artificial chain $A \cup B \cup C$ is created as the union of secondary structures from the thee input chains -- time step. Then each of these chains is compared with the artificial chain using the Gap Insertion algorithm and detected gaps are inserted to the chains.}
+  \label{fig:alg2}
+\end{figure}
+
 From all time steps we derive one aggregated chain containing all secondary structures which appear at least in one time step. 
 In this way we create an artificial chain which is internally stored and not presented to the user.
-Then each time step, chain $i$ is compared with this artificial chain and the necessary gaps are inserted into $i$.
-These gaps are positioned onto the places where the artificial chain contains a secondary structure but chain $i$ does not possess it. 
+Then each time step, chain $X$ is compared with this artificial chain and the necessary gaps are inserted into $X$ (here we again utilize our proposed Gap Insertion algorithm).
+These gaps are positioned onto the places where the artificial chain contains a secondary structure but chain $X$ does not possess it. 
 When all time steps are processed, the artificial chain is removed.
+
 
 \subsection*{Interaction}
 The proposed visualization is directly linked with the 3D view.
@@ -531,10 +551,9 @@ However, this order can be changed by simple interaction with the user interface
 Our proposed visualization was tested on several case studies proposed by the biochemists.
 The first study compares six proteins from the cytochrome P450 family of proteins which are published and compared in the review paper by Cojocaru et al.~\cite{Cojocaru2007}. 
 
-\subsection*{Case Study}
-
 \section*{Conclusions}
-TODO
+In this paper we proposed a novel visual representation of protein chains which serves namely for their comparison.
+
 
 Future work
 - algorithm for generating gaps -- design and implement non-trivial approach to visualizing gaps in superimposition of more than two structures
