@@ -267,10 +267,10 @@ The second study focuses on the protein flexibility when by comparing a set of t
 Studying the structure of proteins has been in the scope of researchers for many decades, namely because of their importance in all living cells. 
 Better understanding of their constitution and behavior helps to understand and control their function and properties.
 
-Protein structure consists of a polypeptide chain of amino acids which is unique for each type of protein. 
-The chain is folded into a spatial conformation which can possess specific patterns, called secondary structures.
+Protein structure consists of a polypeptide chain of amino acids, which is unique for each type of protein. 
+The chain is folded into a spatial conformation that exhibits specific patterns, called secondary structures.
 Among these structures belong so called alpha-helices and beta-sheets. 
-The amino acids forming these secondary structures are hold their shape thanks to weak hydrogen bonds between them.
+The amino acids forming these secondary structures maintain their shape thanks to weak hydrogen bonds between them.
 Visual representation of the protein consisting of secondary structures is denoted as cartoon or ribbon (see Figure~\ref{fig:aquaria} left).
 This highly abstracted visualization omits individual atoms of the protein and highlights only the protein backbone represented by the secondary structures.
 Such a representation is very popular by researchers because of its balanced tradeoff between the level of abstractness and conveying the spatial arrangement of the chain.
@@ -282,15 +282,15 @@ Such a representation is very popular by researchers because of its balanced tra
   \label{fig:aquaria}
 \end{figure*}
 
-When comparing several protein structures, e.g., when searching for similar structures in order to get the information about an unknown protein, there are several existing algorithms for aligning such structures.
+When comparing several protein structures, e.g., when searching for similar structures in order to get the information about an unknown protein, there are several existing algorithms for aligning such structures \textbf{TODO some references here}.
 These algorithms are aligning the whole structures (structure alignment) or are parsing the sequence of amino acids and searching for corresponding patterns (sequence alignment). 
 The results of these alignments are traditionally presented in a form of color-coded one-dimensional sequential information (see Figure~\ref{fig:align}).
-Each row represents one protein structure and the user can observe the similarities and differences between protein chains by exploring the columns.
+Each row represents one protein structure and the user can observe both similarities and differences between protein chains by exploring the columns.
 Some methods equip the sequence with the information about secondary structures (see Figure~\ref{fig:aquaria} right).
 However, all of them lack the mutual spatial orientation of the secondary structures of the aligned structures.
-This information is crucial in many cases, namely when exploring the protein inner void space playing a significant role in protein reactivity with other molecules.
+This information is crucial in many cases, namely when exploring the protein inner void space that plays a significant role in protein reactivity with other molecules.
 This void space is determined by the surrounding amino acids, i.e., secondary structures. 
-Therefore, the changes in the spatial position of the secondary structures directly influence the volume and shape of the void space.
+Therefore, the changes in the spatial position of secondary structures directly influence the volume and shape of the void space.
 
 \begin{figure}[th]
   \centering
@@ -316,8 +316,8 @@ Even with such a small number of molecules it is hard to perceive the difference
 \end{figure}
 
 To overcome the problems of the lack of mutual arrangement of the compared protein in the sequential representation and problems with occlusion in the spatial view, we propose a new method designed to serve as a tool for comparison of multiple structures and intuitive exploration of their spatial differences.
-It takes the advantages of the sequential information which consists of individual secondary structures and when comparing this sequence with other proteins, it encodes the mutual spatial arrangement of the secondary structures of the aligned proteins.
-In consequence, the user can observe this arrangement without the occlusion problems of the 3D view.
+It benefits from the sequential information which consists of individual secondary structures, and when comparing this sequence with other proteins, it encodes the mutual spatial arrangement of the secondary structures of the aligned proteins.
+In consequence, the user can observe this arrangement without occlusion issues present in the 3D view.
 Our solution also utilizes the fact that the domain experts are well accustomed with the sequential representation as well as with secondary structures and their cartoon representation. 
 Therefore, our proposed visualization is interactively linked with the 3D view.
 Selection of interesting secondary structures in the novel representation is directly projected to this spatial view. 
@@ -371,18 +371,18 @@ An entirely different approach to analysis of sequences was presented by Nguyen 
 
 \section*{Methodology}
 Our newly proposed method bridges the gap between the one-dimensional and three-dimensional representations of the protein chain.
-Moreover, it serves for fast and intuitive multiple comparison of proteins when it helps to reveal the similarities and differences between the aligned chains, namely their secondary structures.
+Moreover, it serves for fast and intuitive multiple comparison of proteins, which helps to reveal the similarities and differences between the aligned chains, namely their secondary structures.
 The 3D representation is not suitable for such comparison because of the occlusion problems.
 However, the spatial arrangement and mutual orientation of the aligned secondary structures highly influences the protein properties.
 So it is desirable to communicate this information in the visualization.
 On the other hand, the 1D sequential representation of the chain clearly communicates the protein constitution and removes the occlusion problem.
 We also utilize the fact that the domain experts are well accustomed with both sequential and cartoon representations.
-Therefore, we combined the qualities of both representations and proposed a novel method for comparison and interactive exploration of multiple aligned protein chains.
+Therefore, we combine the qualities of both representations and propose a novel method for comparison and interactive exploration of multiple aligned protein chains \textbf{This was already mentioned - sounds more like motivation again, I would suggest to reduce it and put a small system overview}.
 
-The input data consist of a set of proteins in the PDB format and are aligned with respect to their structure.
+The input data consist of a set of proteins in the PDB format, which are subsequently aligned with respect to their structure.
 The alignment is performed using the Combinatorial Extension (CE) algorithm~\cite{Shindyalov1998}. 
 One protein chain is selected as reference and the remaining proteins are aligned to it.
-For each aligned protein this algorithm outputs the transformed positions of its atoms and the RMSD (root-mean-square deviation) number expressing the difference between the reference and aligned protein.  
+For each aligned protein this algorithm computes the transformed positions of its atoms and the RMSD (root-mean-square deviation) number expressing the difference between the reference and aligned protein.  
 The results are loaded to our newly proposed representation consisting of the following parts (see Figure~\ref{fig:design}):
 \begin{itemize}
 \item 3D visualization window showing all aligned proteins (it utilizes the PV viewer available in SWISS-MODEL tool~\cite{biasini2014})
@@ -414,25 +414,25 @@ It consists of two main parts.
 The main top part represents the sequential information about protein chain along with its secondary structures.
 The bottom part serves for interactive navigation through the protein chain in the top part. 
 It informs the user about the length and overall alignment of the compared structures.
-Moreover, it enables the user to navigate through the chain and select only an interesting part of the aligned chains which is then zoomed in the top part.
+Moreover, it enables the user to navigate through the chain and select only an interesting part of the aligned chains, which is then zoomed in the top part.
 
 
 The interactive navigation part consists of several colored lines where each line corresponds to one protein.
 If the protein consists of more chains, the line is interrupted.
 Each line can contain black parts which correspond to gaps inserted by the overlay algorithm described in the Implementation section.
 These gaps play a role of inserted parts into the straightened chains in order to maintain the correspondence between secondary structures of aligned chains. 
-This can happen, e.g., when one chain contains a secondary structure which is missing in the second protein (see Figure~\ref{fig:gap}).
-In the top part each gap is represented by grey rectangle.
+This can happen, e.g., when one chain contains a secondary structure that is missing in the second protein (see Figure~\ref{fig:gap}).
+In the top part each gap is represented by gray rectangle.
 
 \begin{figure}[ht]
   \centering
   \includegraphics[width=0.9\linewidth]{pics/gap2.png}
-  \caption{Example of a helix in the blue protein which does not have its couterpart in the orange protein. This is solved by inserting a gap (grey rectangle) to the superimposed and juxtaposed representations.}
+  \caption{Example of a helix in the blue protein which does not have its couterpart in the orange protein. This is solved by inserting a gap (gray rectangle) to the superimposed and juxtaposed representations.}
   \label{fig:gap}
 \end{figure}
 
 These basic elements are used in two different manners.
-In the first case all representations of the aligned chains are superimposed so the user can immediately see the most similar and different parts of the chains.
+In the first case all representations of the aligned chains are superimposed so that the user can immediately see the most similar and different parts of the chains.
 The second case shows all aligned chains next to each other which helps to explore individual chains in detail.
 In both cases the user can use the navigation slider to select only and interesting part of the chains, zoom in and browse the chain in this zoomed mode.
 In the visualization one protein, selected as a reference one, is completely straightened.
@@ -448,7 +448,7 @@ The orientation of the secondary structures in the remaining aligned chains is a
 In consequence, our abstracted representation intuitively navigates the user to the most interesting parts of the chains by linking the selection in the superimposed or juxtaposed view with the 3D representation of the aligned proteins. 
 
 As mentioned before, except for the visualization we proposed also an algorithm for solving the problem of gap insertion.
-This will be described in detail in the following section.
+This is described in detail in the following section.
 
 
 \subsection*{Implementation}
@@ -463,8 +463,8 @@ The beads on these threads can have different colors.
 Their color stands for one secondary structure (helix or strand) which has its unique structure, i.e., consists of a given set of amino acids.
 Therefore, the beads with the same color can be positioned on different threads.
 In other words, if two beads being on different threads have the same color, it signifies that the corresponding secondary structures were mutually aligned and marked as the corresponding ones. 
-Now we take all the threads and put them below each other.
-And the task is to position the beads on these threads in such a way that if they correspond to each other (have the same color), they are also positioned below each other. 
+Afterward all the threads are arranged below each other.
+The task is to position the beads on these threads in such a way that if they correspond to each other (have the same color), they are also positioned below each other. 
 The beads can move along the thread but cannot exchange the position with another bead on the same thread.
 The following algorithm proposes a simple solution to this problem.
 
@@ -477,8 +477,8 @@ The following algorithm proposes a simple solution to this problem.
 The algorithm for determining the parts on the protein chains where a gap should be inserted works as follows. 
 The optimal solution would be to minimize the amount of inserted gaps.
 Such solution would be very time and memory consuming.
-To overcome this, we propose a greedy algorithm which produces sufficiently correct solution for in a fraction of time of the optimal solution.
-The correctness was tested on many protein structures and only in some cases our greedy approach inserts few unnecessary gaps into the chains.
+To overcome this, we propose a greedy algorithm which produces sufficiently correct solution in a fraction of time of the optimal solution.
+The correctness was tested on many protein structures and only in some cases our greedy approach inserts a few unnecessary gaps into the chains.
 
 The algorithm operates with pairs of protein chains.
 The idea for this algorithm comes from the double stack approach when we are able to maintain two stacks in one array.
@@ -501,38 +501,31 @@ When one of the chains is already processed and the second chain still contains 
 
 \subsubsection*{Algorithm for Processing Molecular Dynamics}
 When comparing individual time steps of a molecular dynamics simulation, the situation is slightly different. 
-We can use the fact that the constitution of the protein chain and only small changes in its secondary structures can occur over time.
-These changes can happen at the ends of the secondary structures where the amino acid can due to the movement change its membership to the given secondary structure.
+We can use the fact that only small changes in its secondary structures and the constitution of the protein chain can occur over time.
+%v následující větě jde o jednu AA, nebo o více?
+These changes can happen at the ends of the secondary structures where the amino acid can change its membership to the given secondary structure because of the movement of the molecule in the dynamics.
 If the secondary structure is very short (consists of one or two amino acids), it can completely disappear in some time steps.
-In this specific case we take a different approach.
+In this specific case we utilize a different approach.
 From all time steps we derive one aggregated chain containing all secondary structures which appear at least in one time step. 
 In this way we create an artificial chain which is internally stored and not presented to the user.
-Then, each time step chain $i$ is compared with this artificial chain and the necessary gaps are inserted into $i$.
+Then each time step, chain $i$ is compared with this artificial chain and the necessary gaps are inserted into $i$.
 These gaps are positioned onto the places where the artificial chain contains a secondary structure but chain $i$ does not possess it. 
 When all time steps are processed, the artificial chain is removed.
 
 \subsection*{Interaction}
+The proposed visualization is directly linked with the 3D view.
+The user can interact with both views.
+In the 3D view the individual secondary structures are highlighted when hovering over them with mouse and the information about the type and identifier of that secondary structure appears.
+When selected by a mouse click, the secondary structure is highlighted in green.
+Similarly, the user can select individual secondary structures in the 2D view by clicking on them.
+When any of the secondary structures is selected, the highlight of this element is immediately projected to the second view.
+This functionality gives the user an insight on the spatial positions of the selected structures.
+It also offers independent interaction with both views yet still in context of the selected elements.
 
-%Strong points of our representation:
-%\begin{itemize}
-%\item interactive manipulation
-%\item predefined ranking according to RMSD
-%\item linking with 3D
-%\item filtering (removing the most different proteins)
-%\end{itemize}
-
-
-The 3D view and 2D view are both interactive -- basic information about the secondary structure is shown when mouse is moving over the visualizations and a structure is highlighted in green when a structure is selected by a mouse click. Moreover, the 3D and 2D views are interconnected, thus creating a unique way to explore the molecules -- when any of the structure is clicked on, the highlight is visible immediately in both views. This feature gives the user very important context of the actual spatial positions of the selected structures and enables him or her to interact with both views independtly, yet still in context. Therefore, the user does not have to tediously decode the flattened visualization trying to figure out what the spatial context of a given structure is, he or she just has to glipms into the 3D view and then continue to the next interesting area for exploration.
-
-The visibility of molecules and their attributes in both views is possible via buttons in configuration panel below the 3D viewer. Molecules in the juxtaposition view are sortable, so the user can see the differences between the pairs of molecules of his or her choice.
-
-%\begin{figure*}[t!]
-%  \centering
-%  \includegraphics[height=3.5in]{pics/teaser.png}
-%  \caption{Example two-column figure. To insert a single column figure, remove the * in the two figure tags. }
-%  \label{fig:interface}
-%\end{figure*}
-
+We also provide the users with a configuration panel located below the 3D view which allows the user to load individual structures and further manipulate with them, e.g., defining the reference protein onto which the remaining proteins are aligned.
+Proteins in the juxtaposition view are by default sorted by the computed RMSD between the reference protein and the others.
+Therefore, the most similar proteins are positioned closer to the reference protein on the top.
+However, this order can be changed by simple interaction with the user interface.   
 
 \section*{Results and Discussion}
 Our proposed visualization was tested on several case studies proposed by the biochemists.
