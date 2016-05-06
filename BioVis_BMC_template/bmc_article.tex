@@ -486,8 +486,8 @@ The algorithm operates with pairs of protein chains and it is illustrated in Fig
 
 \begin{figure}[hbt]
   \centering
-  \includegraphics[width=0.9\linewidth]{pics/alg1.png}
-  \caption{Principle of the Gap Insertion algorithm. Image illustrates the state when in proteins A and B the helices $i$ and $r$ were already determined as the corresponding ones and the pointers are positioned behind them. Now strand $j$ from A is searched in B and the corresponding strand $t$ is found after skipping one secondary structure. Therefore $n_{gap} = 1$. Similarly, for helix $s$ in B we search for corresponding helix in A. It is the $m$ helix in A and we had to skip 3 secondary structures, so  $m_{gap} = 3$. So we select the first option as the next step, insert one gap to chain A (which will correspond to helix $s$ from B), shift the pointers behind $j$, respectively $t$, and repeat the procedure until both proteins are not processed.}
+  \includegraphics[width=0.9\linewidth]{pics/first.pdf}
+  \caption{Principle of the Gap Insertion algorithm. Image illustrates the state when in proteins A and B the helices $i$ and $r$ were already determined as the corresponding ones and the pointers (red arrows) are positioned behind them. Now the strand $j$ from A is searched in B and the corresponding strand $t$ is found after skipping one secondary structure (thick line). Therefore $n_{gap} = 1$. Similarly, for helix $s$ in B we search for corresponding helix in A. It is the $m$ helix in A (thick line) and we had to skip 3 secondary structures, so  $m_{gap} = 3$. So we select the first option as the next step, insert one gap to chain A (which will correspond to helix $s$ from B), shift the pointers behind $j$, respectively $t$, and repeat the procedure until both proteins are not processed.}
   \label{fig:alg1}
 \end{figure}
 
@@ -518,12 +518,12 @@ These changes can happen at the ends of the secondary structures where the amino
 If the secondary structure is very short (consists of one or two amino acids), it can completely disappear in some time steps.
 In this specific case we utilize a different approach, illustrated in Figure~\ref{fig:alg2}.
 
-\begin{figure}[hbt]
+\begin{figure*}[hbt]
   \centering
-  \includegraphics[width=0.9\linewidth]{pics/alg2.png}
+  \includegraphics[width=0.9\textwidth]{pics/second.pdf}
   \caption{Principle of the algorithm processing molecular dynamics. Image illustrates the state when we aim to compare three time steps $A, B, C$ of molecular dynamics simulation. First an artificial chain $A \cup B \cup C$ is created as the union of secondary structures from the thee input chains -- time step. Then each of these chains is compared with the artificial chain using the Gap Insertion algorithm and detected gaps are inserted to the chains.}
   \label{fig:alg2}
-\end{figure}
+\end{figure*}
 
 From all time steps we derive one aggregated chain containing all secondary structures which appear at least in one time step. 
 In this way we create an artificial chain which is internally stored and not presented to the user.
