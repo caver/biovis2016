@@ -282,8 +282,8 @@ Visual representation of the protein consisting of secondary structures is denot
 
 \begin{figure*}[th]
   \centering
-  \includegraphics[width=0.9\textwidth]{pics/aquaria.png}
-  \caption{Left -- cartoon representation of the DhaA haloalkane dehalogenase (PDB ID 1CQW). Right -- part of the sequential representation of DhaA along with the information about secondary structures and several other structures sequentially aligned to DhaA. Images generated using the Aquaria tool by O'Donoghue et al.~\cite{odonoghue2015}.}
+  \includegraphics[width=0.9\textwidth]{pics/aquaria2.png}
+  \caption{Left -- cartoon representation of the DhaA haloalkane dehalogenase (PDB ID 1CQW). Right -- part of the sequential representation of DhaA along with the information about secondary structures and several other structures sequentially aligned to DhaA. The representation encodes the sequence identity of the DhaA with an automatically selected set of similar proteins. These proteins are sorted according to their similarity to DhaA. The enconding aims to convey the similarity in particular areas of the chain. Images generated using the Aquaria tool by O'Donoghue et al.~\cite{odonoghue2015}.}
   \label{fig:aquaria}
 \end{figure*}
 
@@ -392,6 +392,7 @@ The input data consist of a set of proteins in the PDB format, which are subsequ
 The alignment is performed using the Combinatorial Extension (CE) algorithm~\cite{Shindyalov1998}. 
 One protein chain is selected as reference and the remaining proteins are aligned to it.
 For each aligned protein this algorithm computes the transformed positions of its atoms and the RMSD (root-mean-square deviation) number expressing the difference between the reference and aligned protein.  
+Furthermore, we use the DSSP algorithm by Touw et al.~\cite{dssp} to determine the individual secondary structures (helices, sheets, coils) for each chain.
 The results are loaded to our newly proposed representation consisting of the following parts (see Figure~\ref{fig:design}):
 \begin{itemize}
 \item 3D visualization window showing all aligned proteins (it utilizes the PV viewer available in SWISS-MODEL tool~\cite{biasini2014})
@@ -430,7 +431,8 @@ It demonstrates the case when two proteins chains are aligned.
 It consists of two main parts.
 The first part represents the sequential information about protein chain along with its secondary structures.
 The second part serves for interactive navigation through the protein chain in the top part. 
-It informs the user about the length and overall alignment of the compared structures.
+This part also gives the user the information about the relative length and global alignment of the compared chains.
+In other words, it aims to show the mutual positioning of the aligned chains which can be of different lengths.
 Moreover, it enables the user to navigate through the chain and select only an interesting part of the aligned chains, which is then zoomed in the top part.
 
 
@@ -465,7 +467,7 @@ The orientation of the secondary structures in the remaining aligned chains is a
 
 In consequence, our abstracted representation intuitively navigates the user to the most interesting parts of the chains by linking the selection in the superimposed or juxtaposed view with the 3D representation of the aligned proteins. 
 
-As mentioned before, except for the visualization we proposed also an algorithm for solving the problem of gap insertion.
+As mentioned before, in addition to the visualization we proposed also an algorithm for solving the problem of gap insertion.
 This is described in detail in the following section.
 
 
@@ -502,7 +504,7 @@ The algorithm operates with pairs of protein chains and it is illustrated in Fig
 \begin{figure}[hbt]
   \centering
   \includegraphics[width=0.9\linewidth]{pics/first.pdf}
-  \caption{Principle of the Gap Insertion algorithm. Image illustrates the state when in proteins A and B the helices $i$ and $r$ were already determined as the corresponding ones and the pointers (red arrows) are positioned behind them. Now the strand $j$ from A is searched in B and the corresponding strand $t$ is found after skipping one secondary structure (thick line). Therefore $n_{gap} = 1$. Similarly, for helix $s$ in B we search for corresponding helix in A. It is the $m$ helix in A (thick line) and we had to skip 3 secondary structures, so  $m_{gap} = 3$. So we select the first option as the next step, insert one gap to chain A (which will correspond to helix $s$ from B), shift the pointers behind $j$, respectively $t$, and repeat the procedure until both proteins are not processed.}
+  \caption{Principle of the Gap Insertion algorithm. Image illustrates the state when in proteins A and B the helices $i$ and $r$ were already determined as the corresponding ones and the pointers (red arrows) are positioned behind them. Now the strand $j$ from A is searched in B and the corresponding strand $t$ is found after skipping one secondary structure (thick line). Therefore $n_{gap} = 1$. Similarly, for helix $s$ in B we search for corresponding helix in A. It is the $m$ helix in A (thick line) and we had to skip 3 secondary structures, so  $m_{gap} = 3$. So we select the first option as the next step, insert one gap to chain A (which will correspond to helix $s$ from B), shift the pointers behind $j$, respectively $t$, and repeat the procedure until both proteins are processed.}
   \label{fig:alg1}
 \end{figure}
 
@@ -514,7 +516,7 @@ This comparison is performed in two directions, from protein A to protein B and 
 We will describe the principle only for one direction, from A to B.
 For the secondary structure at the following position from the pointer of protein A it searches for the corresponding secondary structure in protein B.
 The correspondence between the secondary structures is determined from their spatial distance and type.
-If found, it counts and remembers the number of secondary structures and their lenghts (lets denote it as $n_{gap}$) which have to be skipped in B to get to the corresponding secondary structure.
+If found, it counts and remembers the number of secondary structures and their lengths (lets denote it as $n_{gap}$) which have to be skipped in B to get to the corresponding secondary structure.
 The same procedure is performed for protein B, where we obtain $m_{gap}$ as a result.
 Then, from these two solutions we take that one which contains less amount of skipped secondary structures.
 So if $n_{gap} < m_{gap}$ we insert $n_{gap}$ gaps into protein A, just before the currently processed secondary structure.
@@ -537,7 +539,7 @@ In this specific case we utilize a different approach, illustrated in Figure~\re
 \begin{figure*}[hbt]
   \centering
   \includegraphics[width=0.9\textwidth]{pics/second.pdf}
-  \caption{Principle of the algorithm processing molecular dynamics. Image illustrates the state when we aim to compare three time steps $A, B, C$ of molecular dynamics simulation. First an artificial chain $A \cup B \cup C$ is created as the union of secondary structures from the thee input chains -- time step. Then each of these chains is compared with the artificial chain using the Gap Insertion algorithm and detected gaps are inserted to the chains.}
+  \caption{Principle of the algorithm processing molecular dynamics. Image illustrates the state when we aim to compare three time steps $A, B, C$ of molecular dynamics simulation. First an artificial chain $A \cup B \cup C$ is created as the union of secondary structures from the three input chains -- time step. Then each of these chains is compared with the artificial chain using the Gap Insertion algorithm and detected gaps are inserted to the chains.}
   \label{fig:alg2}
 \end{figure*}
 
@@ -554,6 +556,7 @@ The proposed visualization is directly linked with the 3D view.
 The user can interact with both views.
 In the 3D view the individual secondary structures are highlighted when hovering over them with mouse and the information about the type and identifier of that secondary structure appears.
 When selected by a mouse click, the secondary structure is highlighted in green.
+The 3D view can be also zoomed to be able to observe the selected parts in more detail (see Figure~\ref{fig:orientation}).
 Similarly, the user can select individual secondary structures in the 2D view by clicking on them.
 When any of the secondary structures is selected, the highlight of this element is immediately projected to the second view.
 This functionality gives the user an insight on the spatial positions of the selected structures.
@@ -563,22 +566,29 @@ We also provide the users with a configuration panel located below the 3D view w
 Proteins in the juxtaposition view are by default sorted by the computed RMSD between the reference protein and the others.
 Therefore, the most similar proteins are positioned closer to the reference protein on the top.
 However, this order can be changed by simple interaction with the user interface.   
+The whole interface as well as the interaction possibilities can be observed in the supplementary video.
 
 \section*{Results and Discussion}
-Our proposed visualization was tested on several case studies proposed by the biochemists.
-Here we will describe two selected cases.
-The first study compares proteins from the cytochrome P450 family of proteins which are published and compared in the review paper by Cojocaru et al.~\cite{Cojocaru2007}. 
+Our proposed visualization was tested on several usage scenarios proposed by the domain experts in biochemistry, namely in protein engineering.
+The group of experts consisted of one professor (head of the research group), two post-doc researchers, and two PhD students.
+All of them are very active in designing modifications of protein structures.
+
+In the following we will describe two scenarios which are the representatives of the most typical problems our domain experts are dealing with.
+The first scenario compares proteins from the cytochrome P450 family of proteins which are published and compared in the review paper by Cojocaru et al.~\cite{Cojocaru2007}. 
 The authors present newly revealed channels in this family of proteins.
 Studying these channels is of high interest because they can serve for transportation of ligands to the protein active site where a chemical reaction between the protein and ligand can occur.
-The study demonstrates how some of the channels can merge when the protein structures change.
-This merge is largely caused by movements of specific secondary structures.
+By studying these channels we can reveal how substrates may access the active site and how products may egress. 
+Such channels may also be relevant for the passage of the smaller water and oxygen molecules involved in the reaction. 
+
+The study demonstrates how the changes in protein structure influence the appearance of their protein channels.
+By movements of specific secondary structures some channels can merge which influences the protein properties and behavior substantially.
 These movements are most significant when comparing crystal structures of the mammalian and bacterial enzymes.
 
 The authors are exploring enzymes (for our case we selected those with PDB identifiers 2D09, 1PQ2, 1IZO, 1F4T, and 1NR6) which represent different topologies of cytochrome P450. 
 The presence and position of channels in these enzymes are distinguished by the secondary structure elements lining the channels at the protein surface. 
 As the positioning of the secondary structures varies from one cytochrome to another, the spatial location of channels vary considerably as well.
 Therefore, the key to understand the differences between channels lies in the exploration of changes between the spatial positions of lining secondary structures.
-However, using the juxtaposed views illustrated in the paper or superimposing the 3D representations it is very hard to reveal the differences in positions of the secondary structures (see Figure~\ref{fig:many}).
+However, using the juxtaposed views illustrated in the paper (see Figure 2 in~\cite{Cojocaru2007}) or superimposing the 3D representations it is very hard to reveal the differences in positions of the secondary structures (see Figure~\ref{fig:many}).
 
 Using our newly proposed representation the user can observe the differences in the aligned chains of these structures (see Figure~\ref{fig:five}).
 By selecting those interesting parts in the 2D view the user is intuitively navigated to the areas in 3D space where these parts are located.
@@ -592,9 +602,9 @@ This enables fast exploration of the aligned chains and changes in the void spac
 \end{figure*}
 
 
-The second study focuses on the exploration of protein flexibility.
+The second scenario focuses on the exploration of protein flexibility.
 This can be reached by studying the behavior of the protein via the molecular dynamics simulations.
-Individual secondary structures of the protein can change their positions over time and the the more significant movement, the more flexible a given secondary structure is.
+Individual secondary structures of the protein can change their positions over time and the more significant movement, the more flexible a given secondary structure is.
 Therefore, we can study the protein behavior by comparing the protein chain in selected time steps.
 Here our representation again helps to reveal the most similar (i.e., stable) and most different (i.e., flexible) secondary structures (see Figure~\ref{fig:case2}) and to navigate the user to these parts in the 3D view.
 
@@ -615,19 +625,24 @@ On the other hand, when comparing significantly different solutions, the visuali
 
 \section*{Conclusions}
 In this paper we proposed a novel visual representation of protein chains which helps to intuitively compare several aligned protein chains and to reveal their most significant parts.
-The representation uses combines the advantages of the 2D sequential representation and 3D view and help the user to understand the mutual position of secondary structures in the aligned chains and explore them in 3D.
-The usability of our approach was tested on several case studies and the domain experts confirmed that it helped them to reveal and understand the differences between secondary structure positions more quickly and intuitively than before.
+The representation combines the advantages of the 2D sequential representation and the 3D view. 
+It helps the user to understand the mutual position of secondary structures in the aligned chains and further explore them in 3D.
+The usability of our approach was tested on several usage scenarios and the domain experts confirmed that it helped them to reveal and understand the differences between secondary structure positions more quickly and intuitively than before.
 
 Our representation can be further improved in several ways. 
 One bottleneck of our approach currently lies in the Gap Insertion algorithm which, due to its simplicity, can in some specific cases insert too much gaps.
 Therefore, we will design and implement more sophisticated, yet time and memory efficient, approach to visualizing gaps in superimposition of more than two structures.
 Another possible extension, also suggested by the domain experts, was to automatically highlight interesting parts of the chains by introducing a similarity index.
 Of course, this index has to be defined in tight cooperation with the biochemists.
-When comparing many proteins or many time steps, the visualization starts to be too complex.
+
+Another issue occurs when comparing many proteins or many time steps.
+Even when the compared chains are very similar, the superposed visualization will be too complex at some point (i.e., there will be so many overlapped chains that the visualization becomes unreadable).
 In these cases the user is mostly interested in the significant differences between the chains.
 Therefore, we could implement a contour-based visualization which outlines only the contours of the superimposed structures.
 Finally, our representation could be further equipped with the additional information about positions of protein channels, interacting ligands, and other biochemically relevant structures.
 
+\section*{Acknowledgements}
+This work was supported through the mobility project NF-CZ07-MOP-2-1162014 supported by Norway grants and through the PhysioIllustration research project 218023 funded by the Norwegian Research Council.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 %%                                          %%
 %% Backmatter begins here                   %%
