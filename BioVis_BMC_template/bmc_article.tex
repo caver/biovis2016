@@ -354,8 +354,8 @@ In this way it can significantly influence the protein reactivity.
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=0.9\columnwidth]{pics/angles.pdf}
-  \caption{Illustration of the situation when the different spatial position determines the protein behavior. The sequential information in both situations is the same but the spatial orientation of the helices is significantly different.}
+  \includegraphics[width=0.9\columnwidth]{pics/angles.png}
+  \caption{Illustration of the situation when the different spatial position determines the protein behavior. The sequential information in both situations (blue and orange chains) is the same but the spatial orientation of the helices is significantly different.}
   \label{fig:mutual_pos}
 \end{figure}
 
@@ -430,7 +430,7 @@ As mentioned earlier, our approach combines the qualities of 2D sequential repre
 This results in the hybrid representation which encodes the information about mutual orientation of corresponding secondary structures to the sequential view.
 This representation is interactively linked with the 3D view and by interactive selections the user has immediate correspondence between these two views.
 
-The input data consist of a set of proteins in the PDB format, which are subsequently aligned with respect to their structure.
+The input data consists of a set of proteins in the PDB format, which are subsequently aligned with respect to their structure.
 The alignment is performed using the Combinatorial Extension (CE) algorithm~\cite{Shindyalov1998}. 
 One protein chain is selected as a reference and the remaining proteins are aligned to it.
 For each aligned protein this algorithm computes the transformed positions of its atoms and the RMSD (root-mean-square deviation) number expressing the difference between the reference and aligned protein.  
@@ -466,6 +466,15 @@ The length of the glyph corresponds to the size of the secondary structure (i.e.
 The reference chain is completely straightened.
 Then we take the information about the mutual spatial position between the secondary structures of the reference chain and the aligned chains.
 This determines the positioning of the glyphs representing the secondary structures of the aligned chains along the reference chain.
+
+To be more specific, the mutual position of two glyphs representing the corresponding secondary structures is calculated in the following way.
+It consists of two parts, the angle and the shift calculations.
+Both are derived from their mutual position in 3D space.
+To calculate the angle between two glyphs, we take two direction vectors of the secondary structures in 3D and compute the angle between them.
+This value is then projected to the angle between the glyphs in 2D.
+To determine the shift between glyphs, we calculate the shift between the direction vectors.
+In our solution we simply ignore the Z coordinate but in the future we could extend this by calculating the best viewing position to minimize the skew.
+The length of the glyphs is taken from 3D as well by simply computing the length from the start position (first carbon atom of a secondary structure) to the end position (last carbon atom of a secondary structure).
 
 \begin{figure*}[t!]
   \centering
@@ -581,7 +590,7 @@ However, in many cases only a portion of the secondary structures is the same.
 Then it is a complex problem which has to be solved in tight cooperation with the domain experts.
 Their expertise should help to define a set of parameters which play a role in the similarity definition and these parameters should be incorporated into the gap insertion algorithm. 
 
-Despite this problem the domain experts concluded that these additional gaps do not decrease the readability and understandability of the visual representation.
+Despite this problem the domain experts concluded that these additional gaps do 	not decrease the readability and understandability of the visual representation.
 
 \begin{figure*}[thb]
   \centering
@@ -693,21 +702,22 @@ On the other hand, when comparing significantly different solutions, the visuali
 This can be partially suppressed by the ability to interactively select only a desired subset of proteins and thus remove, e.g., those with the most significant differences.
 
 \section*{Conclusions}
-In this paper we proposed a novel visual representation of protein chains which helps to intuitively compare several aligned protein chains and to reveal their most significant parts.
-The representation combines the advantages of the 2D sequential representation and the 3D view. 
-It helps the user to understand the mutual position of secondary structures in the aligned chains and further explore them in 3D.
-The usability of our approach was tested on several usage scenarios and the domain experts confirmed that it helped them to reveal and understand the differences between secondary structure positions more quickly and intuitively than before.
+In this paper we proposed a novel visual representation of proteins aiming to intuitively compare several aligned protein chains.
+The representation combines the advantages of the 2D sequential representation and the 3D view which helps to reveal the most significant parts of along the chains, i.e., the similarities and differences. 
+It helps the user to understand the mutual position of secondary structures in the aligned chains and explore them subsequently in 3D.
+The usability of our approach was tested on several usage scenarios and the domain experts confirmed that it helped them to reveal and understand the differences between secondary structure positions more quickly and intuitively than using the previous approaches.
+Among these belong namely the traditional 3D representation and different variants of the 2D unfolded representations which are mostly not suitable for comparison and lack the information about the spatial orientation of secondary structures.
 
-Our representation can be further improved in several ways. 
-One bottleneck of our approach currently lies in the Gap Insertion algorithm which, due to its simplicity, can in some specific cases insert too much gaps.
-Therefore, we will design and implement more sophisticated, yet time and memory efficient, approach to visualizing gaps in superimposition of more than two structures.
-Another possible extension, also suggested by the domain experts, was to automatically highlight interesting parts of the chains by introducing a similarity index.
+From the discussion with the domain experts we revealed several possible extensions of our current implementation.
+One bottleneck of our approach currently lies in the Gap Insertion algorithm which, due to its simplicity, can insert unnecessary gaps.
+Therefore, we aim to design and implement more sophisticated, yet time and memory efficient, approach to insert gaps more correctly.
+Another possible extension, also suggested by the domain experts, is to automatically highlight interesting parts of the chains by introducing a similarity index.
 Of course, this index has to be defined in tight cooperation with the biochemists.
 
-Another issue occurs when comparing many proteins or many time steps.
-Even when the compared chains are very similar, the superposed visualization will be too complex at some point (i.e., there will be so many overlapped chains that the visualization becomes unreadable).
-In these cases the user is mostly interested in the significant differences between the chains.
-Therefore, we could implement a contour-based visualization which outlines only the contours of the superimposed structures.
+Another bottleneck occurs when comparing many proteins or many time steps (from dozens to hundreds).
+Even when the compared chains are very similar, the superposed visualization becomes at some point too complex (i.e., there will be so many overlapped chains that the visualization becomes unreadable).
+In these cases the user is usually interested in the significant differences between the chains.
+Therefore, we plan to implement a contour-based visualization which will outline only the contours of the superimposed structures.
 Finally, our representation could be further equipped with the additional information about positions of protein channels, interacting ligands, and other biochemically relevant structures.
 
 \section*{Acknowledgements}
