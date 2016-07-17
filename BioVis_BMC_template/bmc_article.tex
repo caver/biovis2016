@@ -284,7 +284,7 @@ This representation was first presented by Richardson in 1981~\cite{Richardson19
 \begin{figure*}[th]
   \centering
   \includegraphics[width=0.9\textwidth]{pics/aquaria2.png}
-  \caption{Left -- cartoon representation of the DhaA haloalkane dehalogenase (PDB ID 1CQW). Right -- part of the sequential representation of DhaA along with the information about secondary structures and several other structures sequentially aligned to DhaA. The representation encodes the sequence identity of the DhaA with an automatically selected set of similar proteins. These proteins are sorted according to their similarity to DhaA. The enconding aims to convey the similarity in particular areas of the chain. Images generated using the Aquaria tool by O'Donoghue et al.~\cite{odonoghue2015}.}
+  \caption{Left -- cartoon representation of the DhaA haloalkane dehalogenase (PDB ID 1CQW). Right -- part of the sequential representation of DhaA along with the information about secondary structures and five other proteins sequentially aligned to DhaA. The representation encodes the sequence identity of the DhaA with an automatically selected set of similar proteins. These proteins are sorted according to their similarity to DhaA. The enconding aims to convey the similarity in particular areas of the chain. Images generated using the Aquaria tool by O'Donoghue et al.~\cite{odonoghue2015}.}
   \label{fig:aquaria}
 \end{figure*}
 
@@ -334,8 +334,8 @@ It benefits from the sequential information which consists of individual seconda
 In consequence, the user can observe this arrangement without occlusion issues present in the 3D view.
 
 In tight cooperation with the domain experts we determined the set of main requirements for the newly proposed representation.
-The set faces those tasks which are hard to address using the existing 2D and 3D representations.
-In includes the following requirements:
+The set faces those tasks which are hard to address using the existing 1D, 2D, and 3D representations.
+It includes the following requirements:
 \begin{itemize}
 \item it should convey the information about the constitution of the protein chain wrt. its secondary structures
 \item it should serve for multiple comparison of protein chains represented by secondary structures
@@ -344,13 +344,13 @@ In includes the following requirements:
 \item the user should be able to interact with the system in order to explore the similarities and differences in detail
 \end{itemize}
 
-These requirements reflect the need to explore the mutual position of one of the most scrutinized protein building blocks, its secondary structures.
-Moreover, the visual support for multiple comparison of such structures is currently insufficient.
-The existing 2D representations do not capture the mutual orientation of the secondary structures which can be critical for determining the protein properties and behavior.
-Such situation is demonstrated in Figure~\ref{fig:mutual_pos} showing a simple case with two helices.
-In both cases the 2D sequential information is the same.
-However, the spatial position is significantly different and determines the entrance part (gorge) to the protein inner structure.
-In this way it can significantly influence the protein reactivity.
+These requirements reflect the need to explore the mutual position of one of the most scrutinized protein building blocks, its secondary structure.
+Moreover, the visual support for multiple comparison of secondary structures is currently insufficient.
+The existing 1D and 2D representations do not capture the mutual orientation of the secondary structures which can be critical for determining the protein properties and behavior.
+Such situation is demonstrated in Figure~\ref{fig:mutual_pos} showing a simple chain consisting of two helices in two spatial arrangements.
+In both cases the 1D sequential information is the same.
+However, the spatial position is significantly different and determines the size of the entrance part (gorge) to the protein inner structure.
+Therefore, it can significantly influence the protein reactivity.
 
 \begin{figure}[h!]
   \centering
@@ -359,8 +359,8 @@ In this way it can significantly influence the protein reactivity.
   \label{fig:mutual_pos}
 \end{figure}
 
-Some of the requirements can be addressed individually by the existing solutions but the comprehensible solution supporting all of them is still missing.
-Therefore, we decided to propose a solution which will cover these requirements and will be simple and easy to use. 
+Some of the requirements can be addressed individually by the existing solutions but a comprehensible solution supporting all of them is still missing.
+Therefore, we decided to propose a solution which will cover these requirements and will be simple enough and easy to use. 
 
 Our solution also utilizes the fact that the domain experts are well accustomed with the sequential representation as well as with secondary structures and their cartoon representation. 
 Therefore, our proposed visualization is interactively linked with the 3D view.
@@ -368,11 +368,11 @@ Selection of interesting secondary structures in the novel representation is dir
 
 
 \subsection*{Related Work}
-In this section we aim to cover an overview of existing approaches to the molecule unfolding into 2D as well as the structural comparison of multiple molecules.
-In our proposed approach we aim to incorporate both areas into a complex solution which also includes the spatial orientation of corresponding secondary structures.
+In this section we aim to cover the existing approaches to the molecule unfolding into 2D representation as well as the structural comparison of multiple molecules.
+In our proposed approach we aim to incorporate both these areas into a complex solution which also includes the spatial orientation of corresponding secondary structures.
 To the best of our knowledge, a similar tool that would address the challenge of depicting all these aspects at the same time is not yet available. 
 
-First, we review existing approaches to 2D molecule representation.
+First, we review the existing approaches to abstracted representation 1D or 2D representation of molecules.
 An exhaustive and comprehensive review on the methods, tools and applications of 2D molecular graphics was presented by Zhou and Shang~\cite{Zhou2009}. 
 The review covers numerous approaches to generation and drawing of chemical structures, protein topology representation and schematic layout of molecular interactions.
 The evaluation of common visualization techniques in context of their dimensionality is covered in the work of Heinrich et al.~\cite{Heinrich2014}.
