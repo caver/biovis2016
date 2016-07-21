@@ -293,7 +293,7 @@ Such a representation is very popular among researchers because of its balanced 
 
 When comparing several protein structures, e.g., when searching for similar proteins in order to get the information about an unknown one, there are several existing algorithms for aligning such structures~\cite{dali,Shindyalov1998,ssap,tmalign,promals3d}.
 
-These algorithms are aligning the whole structures (structure alignment) or are parsing the sequence of amino acids and searching for corresponding patterns (sequence alignment). 
+These algorithms align the whole structures (structure alignment) or parse the sequence of amino acids and search for corresponding patterns (sequence alignment). 
 The results of these alignments are traditionally presented in a form of color-coded one-dimensional sequential information (see Figure~\ref{fig:align}).
 
 Each row represents one protein structure and the user can observe both similarities and differences between protein chains by exploring the columns.
@@ -360,7 +360,7 @@ Therefore, it can significantly influence the protein reactivity.
 \end{figure}
 
 Some of the requirements can be addressed individually by the existing solutions but a comprehensible solution supporting all of them is still missing.
-Therefore, we decided to propose a solution which will cover these requirements, will be simple enough and easy to use. 
+Therefore, we decided to propose a solution that will cover these requirements while being simple enough and easy to use. 
 
 Our solution also utilizes the fact that the domain experts are well accustomed with the sequential representation as well as with secondary structures and their cartoon representation. 
 Therefore, our proposed visualization is interactively linked with the 3D view.
@@ -377,7 +377,7 @@ The most typical and traditionally used technique for representation of the mole
 It is present basically in all software tools for molecular visualization and are often used for the comparison of molecules and presentation of the results of alignment.
 The advantage is that it is easily comprehensible, but the spatial information is completely omitted.
 
-Except for this, there are many approaches aiming to unfold the molecule to a 2D view.
+Besides, there are many approaches aiming to unfold the molecule to a 2D view.
 An exhaustive and comprehensive review on the methods, tools, and applications of 2D molecular graphics was presented by Zhou and Shang~\cite{Zhou2009}. 
 The review covers numerous approaches to generation and drawing of chemical structures, protein topology representation, and schematic layout of molecular interactions.
 The evaluation of common visualization techniques in context of their dimensionality is covered in the work of Heinrich et al.~\cite{Heinrich2014}.
@@ -463,7 +463,7 @@ The results are loaded to our newly proposed representation consisting of the fo
 \end{figure*}
 
 In the following we describe the design rationale behind the newly proposed sequential representation in detail.
-With respect to the requirements presented in the Background section we designed our 2D representation of compared protein chains which consists of two parts -- superimposition and juxtaposition panels.
+With respect to the requirements presented in the Background section we designed our 2D representation of compared protein chains, which consists of two parts -- superimposition and juxtaposition panels.
 The superposed window aims to give the user the information about the spatial differences between the secondary structures of the aligned chains and to reveal the most significant parts (most similar or dissimilar ones).
 These can be further explored in detail by using the juxtaposed view and the linked 3D view.
 The juxtaposition is necessary in such cases because it does not suffer from occlusion problems.
@@ -491,13 +491,13 @@ The length of the glyphs is taken from 3D as well by simply computing the length
 
 
 The second part serves for interactive navigation through the protein chain in the top part. 
-This part also gives the user the information about the relative length and global alignment of the compared chains.
-In other words, it aims to show the mutual positioning of the aligned chains which can be of different lengths.
+This part also gives the user the information about the relative length and global alignment of compared chains.
+In other words, it aims to show the mutual positioning of the aligned chains that can be of different lengths.
 Moreover, it enables the user to navigate through the chain and select only an interesting part of the aligned chains, which is then zoomed in the top part.
 
 The interactive navigation part consists of several colored lines where each line corresponds to one protein.
 If the protein consists of more chains, the line is interrupted.
-Each line can contain black parts which correspond to gaps inserted by the overlay algorithm described in the Implementation section.
+Each line might contain black parts that correspond to gaps inserted by the overlay algorithm described in the Implementation section.
 These gaps play a role of inserted parts into the straightened chains in order to maintain the correspondence between secondary structures of aligned chains. 
 This can happen, e.g., when one chain contains a secondary structure that is missing in the second protein (see Figure~\ref{fig:gap}).
 In the top part each gap is represented by a gray rectangle.
@@ -525,7 +525,7 @@ The orientation of the secondary structures in the remaining aligned chains is a
 
 In consequence, our abstracted representation intuitively navigates the user to the most interesting parts of the chains by linking the selection in the superposed or juxtaposed view with the 3D representation of the aligned proteins. 
 
-As mentioned before, in addition to the visualization we proposed also an algorithm for solving the problem of gap insertion.
+As mentioned before, in addition to the visualization we propose also an algorithm for solving the problem of gap insertion.
 This is described in detail in the following section.
 
 
