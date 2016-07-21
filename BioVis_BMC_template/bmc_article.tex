@@ -466,7 +466,8 @@ In the following we describe the design rationale behind the newly proposed sequ
 With respect to the requirements presented in the Background section we designed our 2D representation of compared protein chains, which consists of two parts -- superimposition and juxtaposition panels.
 The superposed window aims to give the user the information about the spatial differences between the secondary structures of the aligned chains and to reveal the most significant parts (most similar or dissimilar ones).
 These can be further explored in detail by using the juxtaposed view and the linked 3D view.
-The juxtaposition is necessary in such cases because it does not suffer from occlusion problems.
+%The juxtaposition is necessary in such cases because it does not suffer from occlusion problems.
+In such cases, the juxtaposition can be crucial since it does not suffer from occlusion problems.
 By interactive selection of desired chains in the user interface the user can explore only a selected portion of input chains.
 
 The basic element of both superposed and juxtaposed views is depicted in Figure~\ref{fig:element}.
@@ -579,7 +580,7 @@ For the secondary structure at the following position from the pointer of protei
 The correspondence between the secondary structures is determined from their spatial distance and type.
 If found, it counts and remembers the number of secondary structures and their lengths (lets denote it as $n_{gap}$) which have to be skipped in B to get to the corresponding secondary structure.
 The same procedure is performed for protein B, where we obtain $m_{gap}$ as a result.
-Then, from these two solutions we take that one which contains less amount of skipped secondary structures.
+Then, from these two solutions we take the one that contains less amount of skipped secondary structures.
 So if $n_{gap} < m_{gap}$ we insert $n_{gap}$ gaps into protein A, just before the currently processed secondary structure.
 The pointer in A is set to this currently processed secondary structure, the pointer in B is shifted to the corresponding secondary structure.
 If $m_{gap} < n_{gap}$ we insert $m_{gap}$ gaps into protein B and shift the pointers accordingly.
@@ -589,28 +590,28 @@ When one of the chains is already processed and the second chain still contains 
 
 The correctness was tested on dozens of protein structures and in several cases our greedy approach inserted a few unnecessary gaps into the chains.
 The algorithm can insert these unnecessary (i.e., redundant) gaps because it has no prior knowledge about the secondary structures following the currently processed position.
-This can happen in cases where there can be more pairs of the closest structures.
+This can happen in cases where there are more pairs of the closest structures.
 The situation when the greedy approach fails is illustrated in Figure~\ref{fig:fail}.
 
 \begin{figure}[thb]
   \centering
   \includegraphics[width=0.9\linewidth]{pics/fail.png}
-  \caption{Example of the failure of the greedy approach to gap insertion. It illustrates the situation when there are more options how to select the closest secondary structures.}
+  \caption{An example of the failure of the greedy approach to gap insertion. It illustrates the situation when there are more options how to select the closest secondary structures.}
   \label{fig:fail}
 \end{figure}
 
 In both examples, there are two helix structures (blue) from the first protein that can be considered as the closest ones to the helix from the second molecule (orange).
 The subsequent secondary structures are different and crucial when considering which pair of the closest structures is correct. 
 The correct pairs of secondary structures are highlighted in green.
-However, the algorithm takes the wrong pair of structures in the second example (Figure~\ref{fig:fail} right) which results in gaps that are positioned incorrectly.
+However, the algorithm takes the wrong pair of structures in the second example (Figure~\ref{fig:fail} right), which results in gaps that are positioned incorrectly.
 
 
-The optimal solution would create a hierarchical structure of all possible solutions and select that one with the smallest number of inserted gaps.
+The optimal solution would create a hierarchical structure of all possible solutions and select one with the smallest number of inserted gaps.
 The gap insertion problem is also tightly related to the definition of the correspondence between the compared secondary structures.
-In other words, we have to define when two secondary structures from different chains correspond to each other.
+In other words, we need to define when two secondary structures from different chains correspond to each other.
 In case when the secondary structures have the same constitution, the solution is trivial.
 However, in many cases only a portion of the secondary structures is the same.
-Then it is a complex problem which has to be solved in tight cooperation with the domain experts.
+Then it is a complex problem that has to be solved in tight cooperation with the domain experts.
 Their expertise should help to define a set of parameters which play a role in the similarity definition and these parameters should be incorporated into the gap insertion algorithm. 
 
 Despite this problem the domain experts concluded that these additional gaps do not decrease the readability and understandability of the visual representation.
@@ -630,7 +631,7 @@ These changes can happen at the ends of the secondary structures where the amino
 If the secondary structure is very short (consists of one or two amino acids), it can completely disappear in some time steps.
 In this specific case we utilize a different approach, illustrated in Figure~\ref{fig:alg2}.
 
-From all time steps we derive one aggregated chain containing all secondary structures which appear at least in one time step. 
+From all time steps we derive one aggregated chain containing all secondary structures that appear at least in one time step. 
 In this way we create an artificial chain which is internally stored and not presented to the user.
 This artificial chain contains one representative of each secondary structure which appeared at least in one of the time step chains.
 Then each time step, chain $X$ is compared with this artificial chain and the necessary gaps are inserted into $X$ (here we again utilize our proposed Gap Insertion algorithm).
