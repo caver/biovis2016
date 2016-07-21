@@ -202,9 +202,9 @@ Our representation is designed to serve namely for comparison of multiple protei
 %Then the user can explore in detail structures of interest, which are visually compared via superimposition and juxtaposition techniques. 
 
 \parttitle{Conclusions}  
-The novel representation is demonstrated on two case studies.
-The first study aims to compare a set of proteins from the family of cytochromes P450 where the position of the secondary structures has a significant impact on the substrate channeling.
-The second study focuses on the protein flexibility when by comparing a set of time steps our representation helps to reveal the most dynamically changing parts of the protein chain.
+The novel representation is demonstrated on two usage scenarios.
+The first scenario aims to compare a set of proteins from the family of cytochromes P450 where the position of the secondary structures has a significant impact on the substrate channeling.
+The second scenario focuses on the protein flexibility when by comparing a set of time steps our representation helps to reveal the most dynamically changing parts of the protein chain.
 
 %\parttitle{Second part title} %if any
 %Text for this section.
@@ -284,21 +284,21 @@ This representation was first presented by Richardson in 1981~\cite{Richardson19
 \begin{figure*}[th]
   \centering
   \includegraphics[width=0.9\textwidth]{pics/aquaria2.png}
-  \caption{Left -- cartoon representation of the DhaA haloalkane dehalogenase (PDB ID 1CQW). Right -- part of the sequential representation of DhaA along with the information about secondary structures and five other proteins sequentially aligned to DhaA. The representation encodes the sequence identity of the DhaA with an automatically selected set of similar proteins. These proteins are sorted according to their similarity to DhaA. The enconding aims to convey the similarity in particular areas of the chain. Images generated using the Aquaria tool by O'Donoghue et al.~\cite{odonoghue2015}.}
+  \caption{Left -- cartoon representation of the DhaA haloalkane dehalogenase (PDB ID 1CQW). Right -- part of the sequential representation of DhaA along with the information about secondary structures and five other proteins sequentially aligned to DhaA. The representation encodes the sequence identity of the DhaA with an automatically selected set of similar proteins. These proteins are sorted according to their similarity to DhaA. The enconding aims to convey the similarity in particular areas of the chain. Images were generated using the Aquaria tool by O'Donoghue et al.~\cite{odonoghue2015}.}
   \label{fig:aquaria}
 \end{figure*}
 
 This highly abstracted visualization omits individual atoms of the protein and highlights only the protein backbone represented by the secondary structures.
-Such a representation is very popular by researchers because of its balanced tradeoff between the level of abstractness and conveying the spatial arrangement of the chain.
+Such a representation is very popular among researchers because of its balanced tradeoff between the level of abstractness and conveying the spatial arrangement of the chain.
 
-When comparing several protein structures, e.g., when searching for similar structures in order to get the information about an unknown protein, there are several existing algorithms for aligning such structures~\cite{dali,Shindyalov1998,ssap,tmalign,promals3d}.
+When comparing several protein structures, e.g., when searching for similar proteins in order to get the information about an unknown one, there are several existing algorithms for aligning such structures~\cite{dali,Shindyalov1998,ssap,tmalign,promals3d}.
 
 These algorithms are aligning the whole structures (structure alignment) or are parsing the sequence of amino acids and searching for corresponding patterns (sequence alignment). 
 The results of these alignments are traditionally presented in a form of color-coded one-dimensional sequential information (see Figure~\ref{fig:align}).
 
 Each row represents one protein structure and the user can observe both similarities and differences between protein chains by exploring the columns.
 Some methods equip the sequence with the information about secondary structures (see Figure~\ref{fig:aquaria} right).
-However, all of them lack the mutual spatial orientation of the secondary structures of the aligned structures.
+However, all of them lack the mutual spatial orientation of the secondary structures of the aligned proteins.
 
 \begin{figure}[ht]
   \centering
@@ -329,16 +329,16 @@ Even with such a small number of molecules it is hard to perceive the difference
   \label{fig:many}
 \end{figure}
 
-To overcome the problems of the lack of mutual arrangement of the compared protein in the sequential representation and problems with occlusion in the spatial view, we propose a new method designed to serve as a tool for comparison of multiple structures and intuitive exploration of their spatial differences.
+To overcome the problems of the lack of mutual arrangement of the compared proteins in the sequential representation and problems with occlusion in the spatial view, we propose a new method designed to serve as a tool for comparison of multiple structures and intuitive exploration of their spatial differences.
 It benefits from the sequential information which consists of individual secondary structures, and when comparing this sequence with other proteins, it encodes the mutual spatial arrangement of the secondary structures of the aligned proteins.
 In consequence, the user can observe this arrangement without occlusion issues present in the 3D view.
 
 In tight cooperation with the domain experts we determined the set of main requirements for the newly proposed representation.
-The set faces those tasks which are hard to address using the existing 1D, 2D, and 3D representations.
+The set covers tasks which are hard to address using the existing 1D, 2D, and 3D representations.
 It includes the following requirements:
 \begin{itemize}
 \item it should convey the information about the constitution of the protein chain wrt. its secondary structures
-\item it should serve for multiple comparison of protein chains represented by secondary structures
+\item it should serve for comparison of multiple protein chains represented by secondary structures
 \item the user should be able to easily see the similarities and differences between the chains
 \item the user should have the information about the global similarity between proteins 
 \item the user should be able to interact with the system in order to explore the similarities and differences in detail
@@ -360,7 +360,7 @@ Therefore, it can significantly influence the protein reactivity.
 \end{figure}
 
 Some of the requirements can be addressed individually by the existing solutions but a comprehensible solution supporting all of them is still missing.
-Therefore, we decided to propose a solution which will cover these requirements and will be simple enough and easy to use. 
+Therefore, we decided to propose a solution which will cover these requirements, will be simple enough and easy to use. 
 
 Our solution also utilizes the fact that the domain experts are well accustomed with the sequential representation as well as with secondary structures and their cartoon representation. 
 Therefore, our proposed visualization is interactively linked with the 3D view.
@@ -372,7 +372,7 @@ In this section we aim to cover the existing approaches to the molecule unfoldin
 In our proposed approach we aim to incorporate both these areas into a complex solution which also includes the spatial orientation of corresponding secondary structures.
 To the best of our knowledge, a similar tool that would address the challenge of depicting all these aspects at the same time is not yet available. 
 
-First, we review the existing approaches to abstracted representation 1D or 2D representation of molecules.
+First, we review the existing approaches to abstracted 1D or 2D representation of molecules.
 The most typical and traditionally used technique for representation of the molecular chain is the 1D sequence of amino acids (see Figure~\ref{fig:align}).
 It is present basically in all software tools for molecular visualization and are often used for the comparison of molecules and presentation of the results of alignment.
 The advantage is that it is easily comprehensible, but the spatial information is completely omitted.
@@ -411,7 +411,7 @@ This software, also known as Visualization of Protein-Ligand Graphs (VPLG), supp
 %comparison of proteins
 Concerning the comparison of protein structures, Zemla presented an LGA method (Local-Global Alignment)~\cite{Zemla2003} that facilitates both sequence dependent and independent modes to this problem.
 Other structure comparison programs use an adequate scoring function, mostly evaluating the similarity with two numbers.
-Those rankings are RMSD between two superimposed structures together with the number of structurally aligned residues.
+Those rankings are RMSD (root-mean-square deviation) between two superimposed structures together with the number of structurally aligned residues.
 Nevertheless, it is highly difficult to optimize both these rankings simultaneously thus they came up with a solution of many different local superimpositions that help to detect similar regions amidst the proteins.
 Subsequently, their scoring function has two components -- it evaluates the longest continuous segments and tests global distance.
 Thus, this method is able to detect regions which are similar either locally or globally.
@@ -439,7 +439,7 @@ This representation is interactively linked with the 3D view and by interactive 
 The input data consists of a set of proteins in the PDB format, which are subsequently aligned with respect to their structure.
 The alignment is performed using the Combinatorial Extension (CE) algorithm~\cite{Shindyalov1998}. 
 One protein chain is selected as a reference and the remaining proteins are aligned to it.
-For each aligned protein this algorithm computes the transformed positions of its atoms and the RMSD (root-mean-square deviation) number expressing the difference between the reference and the aligned protein.  
+For each aligned protein this algorithm computes the transformed positions of its atoms and the RMSD number expressing the difference between the reference and the aligned protein.  
 Furthermore, we use the DSSP algorithm by Touw et al.~\cite{dssp} to determine the individual secondary structures (helices, sheets) for each chain.
 The results are loaded to our newly proposed representation consisting of the following parts (see Figure~\ref{fig:design}):
 
@@ -500,7 +500,7 @@ If the protein consists of more chains, the line is interrupted.
 Each line can contain black parts which correspond to gaps inserted by the overlay algorithm described in the Implementation section.
 These gaps play a role of inserted parts into the straightened chains in order to maintain the correspondence between secondary structures of aligned chains. 
 This can happen, e.g., when one chain contains a secondary structure that is missing in the second protein (see Figure~\ref{fig:gap}).
-In the top part each gap is represented by gray rectangle.
+In the top part each gap is represented by a gray rectangle.
 
 \begin{figure}[t!]
   \centering
