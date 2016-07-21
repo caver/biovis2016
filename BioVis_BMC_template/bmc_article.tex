@@ -536,7 +536,7 @@ Our novel visualization is linked with the 3D representation of the aligned prot
 
 In the remaining part of this section we describe in detail our proposed algorithms for solving the problems with gap insertion into our visual representation.
 We will outline the problem by using a metaphor when the protein chain can be taken as a thread and the secondary structures on this chain will correspond to beads put on this thread.
-When comparing more protein chains, we are dealing with a set of threads. 
+When comparing more protein chains, we deal with a set of threads. 
 The beads on these threads can have different colors. 
 Their color stands for one secondary structure (helix or strand) which has its unique structure, i.e., consists of a given set of amino acids.
 Therefore, the beads with the same color can be positioned on different threads.
@@ -555,7 +555,7 @@ The following algorithm proposes a simple solution to this problem.
 The algorithm for determining the parts on the protein chains where a gap should be inserted is based on a greedy approach.
 The benefit lies in its simplicity and speed but thanks to its nature the output solution may not be optimal. 
 The optimal solution would be to minimize the amount of inserted gaps.
-This would be very time and memory consuming because it has to process all possible solutions and select the most suitable one.
+This would be very time and memory consuming since it has to process all possible solutions and select the most suitable one.
 Our greedy approach overcomes this and produces sufficiently correct solution in a fraction of time of the optimal solution.
 The sufficiency means that the number of inserted gaps does not influence the understandability of the visualization.
 Our solution was tested and evaluated by the biochemists who agreed that the sufficiency condition was met. 
