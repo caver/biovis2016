@@ -572,7 +572,7 @@ The algorithm operates with pairs of protein chains and it is illustrated in Fig
 
 The idea for this algorithm comes from the double stack approach when we are able to maintain two stacks in one array.
 This is reached by allowing the grow of the stacks in opposite directions.
-The algorithm starts by positioning two pointers, each pointer to the beginning of one protein chain.
+The algorithm starts by positioning pointers to the beginning of both protein chains.
 In each step the algorithm compares the secondary structures from both chains, starting from the pointer positions.
 This comparison is performed in two directions, from protein A to protein B and vice versa.
 We will describe the principle only for one direction, from A to B.
@@ -619,7 +619,7 @@ Despite this problem the domain experts concluded that these additional gaps do 
 \begin{figure*}[thb]
   \centering
   \includegraphics[width=0.9\textwidth]{pics/second.pdf}
-  \caption{Principle of the algorithm processing molecular dynamics. Image illustrates the state when we aim to compare three time steps $A, B, C$ of molecular dynamics simulation. First an artificial chain $A \cup B \cup C$ is created as the union of secondary structures from the three input chains -- time step. Then each of these chains is compared with the artificial chain using the Gap Insertion algorithm and detected gaps are inserted to the chains.}
+  \caption{Principle of the algorithm processing molecular dynamics. Image illustrates the state when we aim to compare three time steps $A, B, C$ of molecular dynamics simulation. First an artificial chain $A \cup B \cup C$ is created as the union of secondary structures from the three input chains -- time steps. Then each of these chains is compared with the artificial chain using the Gap Insertion algorithm and detected gaps are inserted into the chains.}
   \label{fig:alg2}
 \end{figure*}
 
@@ -686,13 +686,13 @@ By studying these channels we can reveal how substrates may access the active si
 Such channels may also be relevant for the passage of the smaller water and oxygen molecules involved in the reaction. 
 
 The study demonstrates how the changes in protein structure influence the appearance of their protein channels.
-By movements of specific secondary structures some channels can merge which influences the protein properties and behavior substantially.
+Motion of specific secondary structures might cause that some channels can merge which further influences the protein properties and behavior substantially.
 These movements are most significant when comparing crystal structures of the mammalian and bacterial enzymes.
 
 The authors are exploring enzymes (for our case we selected those with PDB identifiers 2D09, 1PQ2, 1IZO, 1F4T, and 1NR6) which represent different topologies of cytochrome P450. 
 The presence and position of channels in these enzymes are distinguished by the secondary structure elements lining the channels at the protein surface. 
 As the positioning of the secondary structures varies from one cytochrome to another, the spatial location of channels vary considerably as well.
-Therefore, the key to understand the differences between channels lies in the exploration of changes between the spatial positions of lining secondary structures.
+Therefore, the key to understand the differences between channels lies in the exploration of differences in the spatial positions of lining secondary structures.
 However, using the juxtaposed views illustrated in the paper (see Figure 2 in~\cite{Cojocaru2007}) or superimposing the 3D representations it is very hard to reveal the differences in positions of the secondary structures (see Figure~\ref{fig:many}).
 
 Using our newly proposed representation the user can observe the differences in the aligned chains of these structures (see Figure~\ref{fig:five}).
@@ -730,7 +730,7 @@ This can be partially suppressed by the ability to interactively select only a d
 
 \section*{Conclusions}
 In this paper we proposed a novel visual representation of proteins aiming to intuitively compare several aligned protein chains.
-The representation combines the advantages of the 2D sequential representation and the 3D view which helps to reveal the most significant parts of along the chains, i.e., the similarities and differences. 
+The representation combines the advantages of the 2D sequential representation and the 3D view which helps to reveal the most significant parts along the chains, i.e., the similarities and differences. 
 It helps the user to understand the mutual position of secondary structures in the aligned chains and explore them subsequently in 3D.
 The usability of our approach was tested on several usage scenarios and the domain experts confirmed that it helped them to reveal and understand the differences between secondary structure positions more quickly and intuitively than using the previous approaches.
 Among these belong namely the traditional 3D representation and different variants of the 2D unfolded representations which are mostly not suitable for comparison and lack the information about the spatial orientation of secondary structures.
