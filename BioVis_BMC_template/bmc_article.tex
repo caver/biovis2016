@@ -646,7 +646,8 @@ In the 3D view the individual secondary structures are highlighted when hovering
 When selected by a mouse click, the secondary structure is highlighted in green.
 The 3D view can be also zoomed to be able to observe the selected parts in more detail (see Figure~\ref{fig:orientation}).
 Similarly, the user can select individual secondary structures in the 2D view by clicking on them.
-When any of the secondary structures is selected, the highlight of this element is immediately projected to the second view.
+%When any of the secondary structures is selected, the highlight of this element is immediately projected to the second view.
+When any of the secondary structures is selected, the other view highlights the element as well.
 This functionality gives the user an insight on the spatial positions of the selected structures.
 It also offers independent interaction with both views yet still in context of the selected elements.
 
@@ -679,7 +680,7 @@ Therefore, it is an ideal candidate for the evaluation of our proposed visualiza
 It aims to compare proteins from the cytochrome P450 family of proteins which are published and compared in the review paper by Cojocaru et al.~\cite{Cojocaru2007}. 
 The P450 cytochromes are enzymes responsible for the biotransformation of several drugs.
 Therefore, they play a significant role in drug design.
-The authors of the study present newly revealed channels in this family of proteins.
+The study presents newly revealed channels in this family of proteins.
 Studying these channels is of high interest because they can serve for transportation of ligands to the protein active site where a chemical reaction between the protein and ligand can occur.
 By studying these channels we can reveal how substrates may access the active site and how products may egress. 
 Such channels may also be relevant for the passage of the smaller water and oxygen molecules involved in the reaction. 
@@ -700,7 +701,7 @@ This enables fast exploration of the aligned chains and changes in the void spac
 
 
 The second scenario focuses on the exploration of protein flexibility.
-This is also a hot topic in biochemistry because it was revealed that the protein function is influenced not only by its structure but also by its dynamic behavior~\cite{Hensen2012}.
+This is also a hot topic in biochemistry since it was revealed that the protein function is influenced not only by its structure but also by its dynamic behavior~\cite{Hensen2012}.
 The exploration can be reached by studying the behavior of the protein via the molecular dynamics simulations.
 Individual secondary structures of the protein can change their positions over time and the more significant movement, the more flexible a given secondary structure is.
 Therefore, we can study the protein behavior by comparing the protein chain in selected time steps.
@@ -718,7 +719,7 @@ These parts can be then scrutinized in more detail by easy and intuitive selecti
 The 2D view also helped them to reveal the spatial shift between the corresponding secondary structures.
 They also appreciated the possibility to explore individual chains in the juxtaposed view which are sorted according to their similarity with the reference chain.
 
-The domain experts concluded that our proposed 2D representation along with its integrated 3D view is innovative because it helps them to easily reveal the most interesting parts of the aligned protein chains.
+The domain experts concluded that our proposed 2D representation along with its integrated 3D view is innovative and insightful exploration system since it helps them to easily reveal the most interesting parts of the aligned protein chains.
 Thus, it overcomes the occlusion problems because the user is directly navigated only to the specific parts of the chains in the 3D view.
 
 The scalability of our approach highly depends on the input data and the similarity between the scrutinized chains.
@@ -734,11 +735,11 @@ It helps the user to understand the mutual position of secondary structures in t
 The usability of our approach was tested on several usage scenarios and the domain experts confirmed that it helped them to reveal and understand the differences between secondary structure positions more quickly and intuitively than using the previous approaches.
 Among these belong namely the traditional 3D representation and different variants of the 2D unfolded representations which are mostly not suitable for comparison and lack the information about the spatial orientation of secondary structures.
 
-From the discussion with the domain experts we revealed several possible extensions of our current implementation.
+The discussion with the domain experts revealed several possible extensions of our current implementation.
 One bottleneck of our approach currently lies in the Gap Insertion algorithm which, due to its simplicity, can insert unnecessary gaps.
 Therefore, we aim to design and implement more sophisticated, yet time and memory efficient, approach to insert gaps more correctly.
 Another possible extension, also suggested by the domain experts, is to automatically highlight interesting parts of the chains by introducing a similarity index.
-Of course, this index has to be defined in tight cooperation with the biochemists.
+Naturally, this index has to be defined in tight cooperation with the biochemists.
 
 Another bottleneck occurs when comparing many proteins or many time steps (from dozens to hundreds).
 Even when the compared chains are very similar, the superposed visualization becomes at some point too complex (i.e., there will be so many overlapped chains that the visualization becomes unreadable).
